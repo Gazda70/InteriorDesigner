@@ -165,7 +165,7 @@ void UI::createMainMenu()
 		Color::Red, "Wyjdz", 40, Color::Black, Text::Regular, Text::Regular));// wyjdz
 
 }
-void UI::displayCurrent(UIPart current, RenderWindow &window, Plane &myCanvas, bool showList, Furniture* test)
+void UI::displayCurrent(UIPart current, RenderWindow &window, Plane &myCanvas, bool showList, VertexArray& test)
 {
 	switch (current)
 	{
@@ -179,7 +179,7 @@ void UI::displayCurrent(UIPart current, RenderWindow &window, Plane &myCanvas, b
 		{
 			this->furnitureList->drawList(window);
 		}
-		test->draw(window, RenderStates::Default);
+		window.draw(test);
 		break;
 	}
 }
@@ -318,9 +318,19 @@ void Button::draw(RenderTarget & target, RenderStates state) const
 	target.draw(this->myText,state);
 }
 
-Furniture::Furniture(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor)
+Furniture::Furniture(unsigned int width, unsigned int height,
+	unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor, string textureFile)
 :Element(width,height,x_axis,y_axis,degrees,myColor)
 {
+	if (!ourTexture.loadFromFile(textureFile))
+	{
+		cerr << "Nie dziala plik z tekstura!" << endl;
+		return;
+	}
+	else
+	{
+		ourImage.setTexture(ourTexture);
+	}
 	setSize(width, height);
 	setOffset(x_axis, y_axis);
 	setRotation(degrees);
@@ -331,7 +341,7 @@ void Furniture::shallGuide(Vector2i mousePos, bool& isGuide)
 {
 	if (!isGuide)
 	{
-		if (this->test.getGlobalBounds().contains(Vector2f(mousePos))
+		if (ourImage.getGlobalBounds().contains(Vector2f(mousePos))
 			&& Mouse::isButtonPressed(Mouse::Left))
 		{
 			isGuide = true;
@@ -344,8 +354,8 @@ void Furniture::moveAround(Vector2i mousePos, Plane& playground)
 {
 	FloatRect ourBounds = playground.myplane().getGlobalBounds();
 	Vector2f travPos = Vector2f(mousePos);
-	float width = this->test.getGlobalBounds().width;
-	float height = this->test.getGlobalBounds().height;
+	float width = ourImage.getGlobalBounds().width;
+	float height = ourImage.getGlobalBounds().height;
 	if (ourBounds.contains(travPos) && ourBounds.contains(travPos + Vector2f(width, 0))
 		&& ourBounds.contains(travPos + Vector2f(0, height)) && ourBounds.contains(travPos + Vector2f(width, height)))
 
@@ -354,7 +364,7 @@ void Furniture::moveAround(Vector2i mousePos, Plane& playground)
 		if (ourBounds.contains(travPos) && ourBounds.contains(travPos + Vector2f(width, 0))
 			&& ourBounds.contains(travPos + Vector2f(0, height)) && ourBounds.contains(travPos + Vector2f(width, height)))
 		{
-			this->test.setPosition(Vector2f(mousePos));
+			ourImage.setPosition(Vector2f(mousePos));
 		}
 	}
 }
@@ -366,24 +376,23 @@ void Furniture::stopGuide()
 
 void Furniture::setSize(unsigned int width, unsigned int height)
 {
-	Vector2f temp = Vector2f{ static_cast<float> (width), static_cast<float> (height) };
-	this->test.setSize(temp);
+	ourImage.setTextureRect(IntRect(0,0, width, height));
 }
 void Furniture::setOffset(unsigned int x_axis, unsigned int y_axis)
 {
 	Vector2f temp = Vector2f{ static_cast<float> (x_axis) ,static_cast<float> (y_axis) };
-	this->test.setPosition(temp);
+	ourImage.setPosition(temp);
 }
 void Furniture::setRotation(float degrees)
 {
-	this->test.setRotation(degrees);
+	ourImage.setRotation(degrees);
 }
 void Furniture::setColor(Color myColor)
 {
-	this->test.setFillColor(myColor);
+	ourImage.setColor(myColor);
 }
 
 void Furniture::draw(RenderTarget & target, RenderStates state) const
 {
-	target.draw(this->test,state);
+	target.draw(this->ourImage,state);
 }

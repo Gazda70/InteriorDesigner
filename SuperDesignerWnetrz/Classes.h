@@ -8,9 +8,11 @@
 constexpr auto temp_x = 1600;
 constexpr auto temp_y = 900;
 constexpr auto fontFile = "times.ttf";
+constexpr auto textureFile = "TestTekstury.png";
 
 using namespace sf;
 using namespace std;
+
 enum UIPart { MainMenu, WorkPlace };
 class Plane;
 class Element 
@@ -34,17 +36,19 @@ class Furniture : public Element
 {
 public:
 	Furniture() = default;
-	Furniture(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor);
+	Furniture(unsigned int width, unsigned int height,
+		unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor, string textureFile);
 	void shallGuide(Vector2i mousePos, bool& isGuide);
 	void moveAround(Vector2i mousePos, Plane& playground);
 	void stopGuide();
-	RectangleShape test;
 	void setSize(unsigned int width, unsigned int height);
 	void setOffset(unsigned int x_axis, unsigned int  y_axis);
 	void setRotation(float degrees);
 	void setColor(Color myColor);
 	virtual void draw(RenderTarget& target, RenderStates state) const;
 private:
+	Texture ourTexture;
+	Sprite ourImage;
 	bool guided;
 };
 class Plane : public Element
@@ -123,7 +127,7 @@ class UI
 public:
 	void createMainMenu();
 	void createWorkplace();
-	void displayCurrent(UIPart current, RenderWindow &window, Plane &myPlane, bool showList, Furniture* test);
+	void displayCurrent(UIPart current, RenderWindow &window, Plane &myPlane, bool showList, VertexArray& test);
 	int indexList(UIPart current, RenderWindow& window, Vector2i mousePos);
 	vector<UIElement*>& getList(UIPart current);
 private:

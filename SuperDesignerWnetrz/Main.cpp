@@ -20,9 +20,23 @@ int main(int argc, char * argv[])
 	bool showList = 0;
 	UIPart mySwitch = UIPart:: MainMenu;
 	RenderWindow window{ VideoMode(temp_x,temp_y),"Project " };
-	Furniture* testowy = new Furniture(100, 100, 500, 500, 0, Color::Yellow);
+	Furniture* testowy = new Furniture(1000, 1000, 100, 100, 0, Color::Yellow, textureFile);
 	bool mouseGuide = false; // okreœla czy mysz jest w trakcie przeci¹gania jakiegoœ elementu
 	window.setVerticalSyncEnabled(true);
+	VertexArray triangleFan(TriangleFan, 4);
+
+	triangleFan[0].position = Vector2f(50, 150);
+	triangleFan[0].color = Color::Red;
+
+	triangleFan[1].position = Vector2f(200, 75);
+	triangleFan[1].color = Color::Green;
+
+	triangleFan[2].position = Vector2f(400, 456);
+	triangleFan[2].color = Color::Cyan;
+
+	triangleFan[3].position = Vector2f(600, 90);
+	triangleFan[3].color = Color::Blue;
+
 	while (window.isOpen())
 	{
 		// check all the window's events that were triggered since the last iteration of the loop
@@ -34,7 +48,13 @@ int main(int argc, char * argv[])
 			{
 				window.close();
 			}
-			else if ((event.type == Event::MouseButtonPressed))
+			else
+			{
+
+
+
+
+				/* if ((event.type == Event::MouseButtonPressed))
 			{
 				if (!mouseGuide)
 				{
@@ -78,11 +98,14 @@ int main(int argc, char * argv[])
 						mouseGuide = false;
 				}
 			}
-			
+
+		}*/
+				window.clear(Color::White);
+				(*testowy).draw(window, RenderStates::Default);
+				//UInstance.displayCurrent(mySwitch, window,nowy,showList,triangle);
+				window.display();
+			}
 		}
-		window.clear(Color::White);
-		UInstance.displayCurrent(mySwitch, window,nowy,showList,testowy);
-		window.display();
 	}
 
 		system("pause");
