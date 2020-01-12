@@ -13,29 +13,17 @@ int main(int argc, char * argv[])
 	/*cout << "Podaj wymiary plaszczyzny"<<endl;
 	cin >> x;
 	cin >> y;*/
-	Plane nowy = Plane(temp_x - (temp_x/16),temp_y - ((temp_y/18)*5),(temp_x/32), ((temp_y /18)*4),Color::White, Color::Black, -5);
+	Plane nowy = Plane(temp_x - (temp_x/16),temp_y - ((temp_y/18)*5),(temp_x/32), ((temp_y /18)*4),Color::Magenta, Color::Black, -5);
 	UI UInstance;
 	UInstance.createMainMenu();
 	UInstance.createWorkplace();
 	bool showList = 0;
 	UIPart mySwitch = UIPart:: MainMenu;
 	RenderWindow window{ VideoMode(temp_x,temp_y),"Project " };
-	Furniture* testowy = new Furniture(1000, 1000, 100, 100, 0, Color::Yellow, textureFile);
+	Furniture* testowy = new Furniture(1000, 1000, 0, 0, 0, Color::Yellow, textureFile);
 	bool mouseGuide = false; // okreœla czy mysz jest w trakcie przeci¹gania jakiegoœ elementu
 	window.setVerticalSyncEnabled(true);
-	VertexArray triangleFan(TriangleFan, 4);
 
-	triangleFan[0].position = Vector2f(50, 150);
-	triangleFan[0].color = Color::Red;
-
-	triangleFan[1].position = Vector2f(200, 75);
-	triangleFan[1].color = Color::Green;
-
-	triangleFan[2].position = Vector2f(400, 456);
-	triangleFan[2].color = Color::Cyan;
-
-	triangleFan[3].position = Vector2f(600, 90);
-	triangleFan[3].color = Color::Blue;
 
 	while (window.isOpen())
 	{
@@ -100,7 +88,7 @@ int main(int argc, char * argv[])
 			}
 
 		}*/
-				window.clear(Color::White);
+				window.clear(Color::Red);
 				(*testowy).draw(window, RenderStates::Default);
 				//UInstance.displayCurrent(mySwitch, window,nowy,showList,triangle);
 				window.display();

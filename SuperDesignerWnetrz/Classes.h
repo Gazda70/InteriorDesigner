@@ -8,7 +8,7 @@
 constexpr auto temp_x = 1600;
 constexpr auto temp_y = 900;
 constexpr auto fontFile = "times.ttf";
-constexpr auto textureFile = "TestTekstury.png";
+constexpr auto textureFile = "DobreLozko.png";
 
 using namespace sf;
 using namespace std;

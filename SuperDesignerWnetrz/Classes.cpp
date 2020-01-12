@@ -376,7 +376,7 @@ void Furniture::stopGuide()
 
 void Furniture::setSize(unsigned int width, unsigned int height)
 {
-	ourImage.setTextureRect(IntRect(0,0, width, height));
+//	ourImage.setTextureRect(IntRect(0,0, width, height));
 }
 void Furniture::setOffset(unsigned int x_axis, unsigned int y_axis)
 {
