@@ -77,12 +77,14 @@ class UIElement : public Element, public Drawable
 {
 public:
 	UIElement() = default;
-	UIElement(unsigned int width, unsigned int height, unsigned int xS_axis, unsigned int yS_axis, 
-		 float degrees, Color myColor, string message,
-		unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline);
+	UIElement(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,
+		unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline, int ouThick, Color ouColor, string message);
 	RectangleShape getInteractionWindow();
 	Text getText();
 	UIElement* next = nullptr;
+	RectangleShape interactionWindow;
+	bool whenMouseOverMe();
+	virtual void draw(RenderTarget& target, RenderStates state) const override;
 protected:
 	void setText(const string myMes, unsigned int mySize, Color color, Text::Style ifBold, Text::Style ifUnderline);
 	void setShape(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor);
@@ -90,42 +92,30 @@ protected:
 	void setOffset(unsigned int x_axis, unsigned int  y_axis);
 	void setRotation(float degrees);
 	void setColor(Color myColor);
-	virtual void draw(RenderTarget& target, RenderStates state) const override;
 //private:
 	Text myText;
-	RectangleShape interactionWindow;
 	Vector2f size;//wektor okreslajacy wysokosc i szerokosc obiektu
 //	Color myColor;
 	Font myFont;
 };
-class Button : public UIElement
-{
-public:
-	Button(unsigned int width, unsigned int height, unsigned int xS_axis, unsigned int yS_axis,
-		 float degrees, Color myColor, string message,
-		unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline);
-	virtual void draw(RenderTarget& target, RenderStates state) const override;
-};
 class DropDownList : public UIElement
 {
 public:
-	DropDownList(Vector2f startPos, unsigned int width, unsigned int height, Color myColor,
+	DropDownList(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,
 		unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline, int ouThick, Color ouColor);
-	vector<UIElement*>& getList();
 	void addPart(string another);
-	 void drawList(RenderWindow& window);
+	void drawList(vector<UIElement*>& myList, RenderWindow & window);
+	vector<UIElement*> ourlist;
 private:
-	vector<UIElement*> elements;
-	Vector2f startPosition;
-/*	unsigned int width;
-	unsigned int height;
-	Color myColor;*/
+	Color myColor;
 	unsigned int textSize;
+	unsigned int helpy;
 	Color tColor;
 	Text::Style tBold;
 	Text::Style tUnderline;
 	int ouThick;
 	Color ouColor;
+	//friend void UI::displayCurrent(UIPart current, RenderWindow &window, Plane &myPlane, bool showList, Furniture* testowy);
 };
 class UI 
 {
@@ -134,11 +124,12 @@ public:
 	void createWorkplace();
 	void displayCurrent(UIPart current, RenderWindow &window, Plane &myPlane, bool showList, Furniture* testowy);
 	int indexList(UIPart current, RenderWindow& window, Vector2i mousePos);
+	bool isMouseOverHim(UIPart current, RenderWindow& window, Vector2i mousePos);
 	vector<UIElement*>& getList(UIPart current);
+	DropDownList* furnitureList;
 private:
 	vector<UIElement*> mainMenu;
 	vector<UIElement*> workPlace;
-	DropDownList* furnitureList;
 	unsigned int res_x;
 	unsigned int res_y;
 	void displayUI(vector<UIElement*>& myList, RenderWindow &window);

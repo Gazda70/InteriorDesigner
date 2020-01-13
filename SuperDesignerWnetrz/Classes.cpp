@@ -80,17 +80,7 @@ void UIElement::setColor(Color myColor)
 {
 	interactionWindow.setFillColor(myColor);
 }
-UIElement::UIElement(unsigned int width, unsigned int height, unsigned int xS_axis, unsigned int yS_axis,
-	 float degrees, Color myColor, string message,
-	unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline)
-{
-	if (!this->myFont.loadFromFile(fontFile))
-	{
-		cout << "Niepoprawny plik czcionki!" << endl;
-	}
-	setShape(width, height, xS_axis, yS_axis, degrees, myColor);
-	setText(message, textSize,tColor, tBold, tUnderline);
-}
+
 RectangleShape UIElement::getInteractionWindow()
 {
 	RectangleShape shape = this->interactionWindow;
@@ -145,6 +135,18 @@ void UIElement::setShape(unsigned int width, unsigned int height, unsigned int x
 	interactionWindow.setRotation({ degrees });
 }
 
+bool UIElement::whenMouseOverMe()
+{
+	if (this->myText.getString() == "Ksztalty")
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void UIElement::draw(RenderTarget & target, RenderStates state) const
 {
 	target.draw(this->interactionWindow, state);
@@ -153,16 +155,20 @@ void UIElement::draw(RenderTarget & target, RenderStates state) const
 
 void UI::createMainMenu()
 {
-	mainMenu.push_back( new UIElement((temp_x / 2), (temp_y / 9) * 2, temp_x / 4, (temp_y / 18), 0,
-		Color::Green, "Super Designer Wnetrz",60, Color::Black, Text::Regular, Text::Regular));// g³ówny zielony prostok¹t
-	mainMenu.push_back( new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (temp_y / 3), 0,
-		Color::Red, "Nowy projekt", 40, Color::Black, Text::Regular, Text::Regular));// nowy projekt
-	mainMenu.push_back( new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 2.5), 0,
-		Color::Red, "Otworz istniejacy", 40, Color::Black, Text::Regular, Text::Regular));// otwórz istniej¹cy
-	mainMenu.push_back( new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 2.13), 0,
-		Color::Red, "Ustawienia", 40, Color::Black, Text::Regular, Text::Regular));// ustawienia
-	mainMenu.push_back( new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 1.85), 0,
-		Color::Red, "Wyjdz", 40, Color::Black, Text::Regular, Text::Regular));// wyjdz
+	mainMenu.push_back( new UIElement((temp_x / 2), (temp_y / 9) * 2, temp_x / 4, (temp_y / 18),
+		Color::Green,60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Super Designer Wnetrz"));// g³ówny zielony prostok¹t
+
+	mainMenu.push_back( new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (temp_y / 3),
+		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, - 1, Color::Black, "Nowy projekt" ));// nowy projekt
+
+	mainMenu.push_back( new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 2.5),
+		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, - 1, Color::Black,"Otworz istniejacy" ));// otwórz istniej¹cy
+
+	mainMenu.push_back( new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 2.13),
+		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, - 1, Color::Black, "Ustawienia"));// ustawienia
+
+	mainMenu.push_back( new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 1.85),
+		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, - 1, Color::Black,"Wyjdz" ));// wyjdz
 
 }
 void UI::displayCurrent(UIPart current, RenderWindow &window, Plane &myCanvas, bool showList,Furniture* testowy)
@@ -177,7 +183,7 @@ void UI::displayCurrent(UIPart current, RenderWindow &window, Plane &myCanvas, b
 		myCanvas.draw(window, RenderStates::Default);
 		if (showList)
 		{
-			this->furnitureList->drawList(window);
+		//	this->furnitureList->drawList(this->furnitureList->ourlist, window);
 		}
 		testowy->draw(window, RenderStates::Default);
 		break;
@@ -220,6 +226,29 @@ int UI::indexList(UIPart current, RenderWindow& window, Vector2i mousePos)
 	}
 	return count;
 }
+bool UI::isMouseOverHim(UIPart current, RenderWindow & window, Vector2i mousePos)
+{
+	int count = 0;
+	int size = 0;
+	vector<UIElement*>* temp = nullptr;
+		temp = &workPlace;
+		size = temp->size();
+
+	if (temp)
+	{
+		while (count < size)
+		{
+			if ((*temp)[count]->getInteractionWindow().getGlobalBounds()
+				.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+			{
+				if ((*temp)[count]->whenMouseOverMe())
+					return true;
+				count++;
+			}
+		}
+	}
+		return false;
+}
 void UI::displayUI(vector<UIElement*>& myList, RenderWindow &window)
 {
 	for (int i = 0;i < myList.size(); i++)
@@ -243,58 +272,66 @@ vector<UIElement*>& UI::getList(UIPart current)
 
 void UI::createWorkplace()
 {
-	UIElement *ksztalt = new UIElement(((temp_x / 16) * 3), (temp_y / 9), (temp_x / 32), (temp_y / 18), 0,
-		Color::Red, "Ksztalty", 60, Color::Black, Text::Regular, Text::Regular);
-	Vector2f startList = ksztalt->getInteractionWindow().getPosition();
-	FloatRect hookSize = ksztalt->getInteractionWindow().getGlobalBounds();
-	startList.y = startList.y + hookSize.height;
+	UIElement *ksztalt = new UIElement(((temp_x / 16) * 3), (temp_y / 9), (temp_x / 32), (temp_y / 18),
+		Color::Red,60, Color::Black, Text::Regular, Text::Regular,-1, Color::Black, "Ksztalty");
+
 	workPlace.push_back(ksztalt);
-	furnitureList = new DropDownList(startList,static_cast<int>(ksztalt->getInteractionWindow().getGlobalBounds().width), static_cast<int>(ksztalt->getInteractionWindow().getGlobalBounds().height),
+
+	workPlace.push_back(new UIElement(((temp_x / 16) * 3), (temp_y / 9), ((temp_x / 32) * 9), (temp_y / 18),
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular , -1, Color::Black, "Pomoc"));
+
+	workPlace.push_back(new UIElement(((temp_x / 16) * 3), (temp_y / 9), ((temp_x / 32) * 17), (temp_y / 18),
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black,"Zapisz" ));
+
+	workPlace.push_back(new UIElement(((temp_x / 16) * 3), (temp_y / 9), ((temp_x / 32) * 25), (temp_y / 18),
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, - 1, Color::Black,"Wyjdz" ));
+
+	Vector2f startList = ksztalt->getInteractionWindow().getOrigin();
+	FloatRect hookSize = ksztalt->getInteractionWindow().getGlobalBounds();
+	/*static_cast<unsigned int>(hookSize.width / 2),
+		static_cast<unsigned int>(hookSize.height / 2), static_cast<unsigned int>(startList.x), static_cast<unsigned int>(startList.y),*/
+	furnitureList = new DropDownList(100, 
+		100,400,400,
 		Color::Green, 15, Color::Black, Text::Style::Italic, Text::Style::Regular, -5, Color::Black );
 	furnitureList->addPart("Stol");
-
 	furnitureList->addPart("Fotel");
 	furnitureList->addPart("Krzeslo");
 	furnitureList->addPart("Lozko");
-
-	workPlace.push_back( new UIElement(((temp_x / 16) * 3), (temp_y / 9), ((temp_x / 32) * 9), (temp_y / 18), 0,
-		Color::Red, "Pomoc", 60, Color::Black, Text::Regular, Text::Regular));
-	workPlace.push_back( new UIElement(((temp_x / 16) * 3), (temp_y / 9), ((temp_x / 32) * 17), (temp_y / 18), 0,
-		Color::Red, "Zapisz", 60, Color::Black, Text::Regular, Text::Regular));
-	workPlace.push_back( new UIElement(((temp_x / 16) * 3), (temp_y / 9), ((temp_x / 32) * 25), (temp_y / 18),0,
-		Color::Red, "Wyjdz", 60, Color::Black, Text::Regular, Text::Regular));
-}
-vector<UIElement*>& DropDownList::getList()
-{
-	return this->elements;
 }
 void DropDownList::addPart(string another)
 {
-	if (!this->elements.empty())
-	{
-		UIElement temp = *(this->elements.back());
-		Vector2f tempPos = temp.getInteractionWindow().getPosition();
-		this->elements.push_back(new UIElement(this->width, this->height, tempPos.x, tempPos.y + this->height, 0,
-			this->myColor, another, this->textSize, this->tColor, this->tBold, this->tUnderline));
-	}
-	else
-	{
-		this->elements.push_back(new UIElement(this->width, this->height, this->startPosition.x, this->startPosition.y + this->height, 0,
-			this->myColor, another, this->textSize, this->tColor, this->tBold, this->tUnderline));
-	}
+	Vector2f temp;
+	temp.y = helpy;
+	helpy += height;
+	unsigned int x_cor = static_cast<unsigned int>(temp.x);
+	unsigned int y_cor = static_cast<unsigned int>(temp.y);
+	UIElement* nextone = new UIElement(width, height, x_cor, y_cor, myColor,
+		textSize, tColor, tBold, tUnderline, ouThick, ouColor, another);
+	ourlist.push_back(nextone);
 }
-void DropDownList::drawList( RenderWindow & window)
+void DropDownList::drawList(vector<UIElement*>& myList, RenderWindow & window)
 {
-	for (int c = 0;c< (this->elements).size();c++)
+	
+	for (int c = 0;c< myList.size();c++)
 	{
-		window.draw(*(this->elements)[c]);
+		(*myList[c]).draw(window, RenderStates::Default);
 	}
 	return;
 }
-DropDownList::DropDownList(Vector2f startPos, unsigned int width, unsigned int height, Color myColor,
-	unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline, int ouThick, Color ouColor)
+UIElement::UIElement(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,
+	unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline, int ouThick, Color ouColor, string message)
 {
-	this->startPosition = startPos;
+	if (!this->myFont.loadFromFile(fontFile))
+	{
+		cout << "Niepoprawny plik czcionki!" << endl;
+	}
+	setShape(width, height, x_axis, y_axis, degrees, myColor);
+	setText(message, textSize, tColor, tBold, tUnderline);
+}
+DropDownList::DropDownList(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,
+	unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline, int ouThick, Color ouColor)
+	:UIElement(width, height, x_axis, y_axis, myColor, textSize, tColor, tBold, tUnderline, ouThick, ouColor,"")
+{
 	this->width = width;
 	this->height = height;
 	this->myColor = myColor;
@@ -304,19 +341,9 @@ DropDownList::DropDownList(Vector2f startPos, unsigned int width, unsigned int h
 	this->tUnderline = tUnderline;
 	this->ouThick = ouThick;
 	this->ouColor = ouColor;
-}
-Button::Button(unsigned int width, unsigned int height, unsigned int xS_axis, unsigned int yS_axis, 
-	float degrees, Color myColor, string message, unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline)
-{
-	setShape(width, height, xS_axis, yS_axis, degrees, myColor);
-	setText(message, textSize, tColor, tBold, tUnderline);
+	helpy = y_axis;
 }
 
-void Button::draw(RenderTarget & target, RenderStates state) const
-{
-	target.draw(this->interactionWindow,state);
-	target.draw(this->myText,state);
-}
 
 Furniture::Furniture(float width, float height,
 	unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor, string textureFile)

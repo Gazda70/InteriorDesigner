@@ -26,8 +26,11 @@ int main(int argc, char * argv[])
 		nowy.myplane().getSize().y / 1.5f, 0, Color::Red, textureFile);
 	bool mouseGuide = false; // okreœla czy mysz jest w trakcie przeci¹gania jakiegoœ elementu
 	window.setVerticalSyncEnabled(true);
-
-
+	RectangleShape test1;
+	Vector2f help = Vector2f(200, 300);
+	test1.setFillColor(Color::Black);
+	test1.setSize(help);
+	test1.setPosition(help);
 	while (window.isOpen())
 	{
 		// check all the window's events that were triggered since the last iteration of the loop
@@ -61,8 +64,6 @@ int main(int argc, char * argv[])
 					{
 						switch (count)
 						{
-						case 0:
-							showList = 1;
 						case 3:
 							window.close();
 							break;
@@ -87,8 +88,17 @@ int main(int argc, char * argv[])
 						mouseGuide = false;
 				}
 			}
+			else
+			{
+				showList = UInstance.isMouseOverHim(mySwitch, window, Mouse::getPosition(window));
+			}
 				window.clear(Color::Blue);
 			//	(*testowy).draw(window, RenderStates::Default);
+				if (showList)
+				{
+			//		window.draw(test1);
+					//UInstance.furnitureList->drawList(UInstance.furnitureList->ourlist, window);
+				}
 				UInstance.displayCurrent(mySwitch, window,nowy,showList,testowy);
 				window.display();
 		}

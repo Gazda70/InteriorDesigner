@@ -1,1 +1,54 @@
-﻿  SuperDesignerWnetrz.vcxproj -> C:\Users\gazda\Desktop\Politechniczne studia\PK3\ProjektPK3\SuperDesignerWnetrz\Debug\SuperDesignerWnetrz.exe
+﻿  Classes.cpp
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(19): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(20): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(27): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(28): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(76): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(97): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(98): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(130): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(131): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(133): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(254): warning C4018: '<': signed/unsigned mismatch
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(304): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(315): warning C4018: '<': signed/unsigned mismatch
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(350): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\classes.cpp(271): warning C4715: 'UI::getList': not all control paths return a value
+  SuperDesignerWnetrz.vcxproj -> C:\Users\gazda\Desktop\Politechniczne studia\PK3\ProjektPK3\SuperDesignerWnetrz\Debug\SuperDesignerWnetrz.exe
