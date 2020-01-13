@@ -165,7 +165,7 @@ void UI::createMainMenu()
 		Color::Red, "Wyjdz", 40, Color::Black, Text::Regular, Text::Regular));// wyjdz
 
 }
-void UI::displayCurrent(UIPart current, RenderWindow &window, Plane &myCanvas, bool showList, VertexArray& test)
+void UI::displayCurrent(UIPart current, RenderWindow &window, Plane &myCanvas, bool showList,Furniture* testowy)
 {
 	switch (current)
 	{
@@ -179,7 +179,7 @@ void UI::displayCurrent(UIPart current, RenderWindow &window, Plane &myCanvas, b
 		{
 			this->furnitureList->drawList(window);
 		}
-		window.draw(test);
+		testowy->draw(window, RenderStates::Default);
 		break;
 	}
 }
@@ -318,7 +318,7 @@ void Button::draw(RenderTarget & target, RenderStates state) const
 	target.draw(this->myText,state);
 }
 
-Furniture::Furniture(unsigned int width, unsigned int height,
+Furniture::Furniture(float width, float height,
 	unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor, string textureFile)
 :Element(width,height,x_axis,y_axis,degrees,myColor)
 {
@@ -331,6 +331,13 @@ Furniture::Furniture(unsigned int width, unsigned int height,
 	{
 		ourImage.setTexture(ourTexture);
 	}
+	FloatRect temp = ourImage.getGlobalBounds();
+	Vector2f origin = ourImage.getOrigin();
+	origin.x += temp.width / 2;
+	origin.y += temp.height / 2;
+	ourImage.setOrigin(origin);
+	w_scale = 1;
+	h_scale = 1;
 	setSize(width, height);
 	setOffset(x_axis, y_axis);
 	setRotation(degrees);
@@ -341,7 +348,7 @@ void Furniture::shallGuide(Vector2i mousePos, bool& isGuide)
 {
 	if (!isGuide)
 	{
-		if (ourImage.getGlobalBounds().contains(Vector2f(mousePos))
+		if (ourImage.getLocalBounds().contains(Vector2f(mousePos))
 			&& Mouse::isButtonPressed(Mouse::Left))
 		{
 			isGuide = true;
@@ -352,19 +359,23 @@ void Furniture::shallGuide(Vector2i mousePos, bool& isGuide)
 
 void Furniture::moveAround(Vector2i mousePos, Plane& playground)
 {
-	FloatRect ourBounds = playground.myplane().getGlobalBounds();
+	FloatRect ourBounds = playground.myplane().getLocalBounds();
+	FloatRect imageBnd = ourImage.getLocalBounds();
 	Vector2f travPos = Vector2f(mousePos);
-	float width = ourImage.getGlobalBounds().width;
-	float height = ourImage.getGlobalBounds().height;
-	if (ourBounds.contains(travPos) && ourBounds.contains(travPos + Vector2f(width, 0))
-		&& ourBounds.contains(travPos + Vector2f(0, height)) && ourBounds.contains(travPos + Vector2f(width, height)))
 
+	float width = ourImage.getLocalBounds().width;
+	float height = ourImage.getLocalBounds().height;
 	if ((guided)&&(playground.isInside(this,mousePos)))
 	{
-		if (ourBounds.contains(travPos) && ourBounds.contains(travPos + Vector2f(width, 0))
-			&& ourBounds.contains(travPos + Vector2f(0, height)) && ourBounds.contains(travPos + Vector2f(width, height)))
+	//	if	(ourBounds.contains(travPos) && ourBounds.contains(travPos + Vector2f(width, 0)))
+			//&& ourBounds.contains(travPos + Vector2f(0, height))&& ourBounds.contains(travPos + Vector2f(width, height)))
 		{
-			ourImage.setPosition(Vector2f(mousePos));
+
+			ourImage.setPosition(travPos);
+			/*
+			Vector2f toMove = travPos - ourImage.getPosition();
+			ourImage.move(toMove);
+			*/
 		}
 	}
 }
@@ -374,9 +385,33 @@ void Furniture::stopGuide()
 	guided = false;
 }
 
+void Furniture::setSize(Keyboard::Key inputBut)
+{
+	if (previous != inputBut)
+	{
+		w_scale = 1;
+		h_scale = 1;
+	}
+	if (inputBut == Keyboard::P)
+	{
+		w_scale *= 1.001f;
+		h_scale *= 1.001f;
+		ourImage.scale(w_scale, h_scale);
+	}
+	else if (inputBut == Keyboard::O)
+	{
+		w_scale *= 0.999f;
+		h_scale *= 0.999f;
+		ourImage.scale(w_scale, h_scale);
+	}
+	previous = inputBut;
+}
+void Furniture::setSize(float width, float height)
+{
+	this->ourImage.setScale(width,height);
+}
 void Furniture::setSize(unsigned int width, unsigned int height)
 {
-//	ourImage.setTextureRect(IntRect(0,0, width, height));
 }
 void Furniture::setOffset(unsigned int x_axis, unsigned int y_axis)
 {
@@ -391,6 +426,7 @@ void Furniture::setColor(Color myColor)
 {
 	ourImage.setColor(myColor);
 }
+
 
 void Furniture::draw(RenderTarget & target, RenderStates state) const
 {

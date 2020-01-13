@@ -20,7 +20,10 @@ int main(int argc, char * argv[])
 	bool showList = 0;
 	UIPart mySwitch = UIPart:: MainMenu;
 	RenderWindow window{ VideoMode(temp_x,temp_y),"Project " };
-	Furniture* testowy = new Furniture(1000, 1000, 0, 0, 0, Color::Yellow, textureFile);
+	//nowy.myplane().getSize().x/2
+	//nowy.myplane().getSize().y/2
+	Furniture* testowy = new Furniture(0.2f, 0.2f, nowy.myplane().getSize().x / 2,
+		nowy.myplane().getSize().y / 1.5f, 0, Color::Red, textureFile);
 	bool mouseGuide = false; // okreœla czy mysz jest w trakcie przeci¹gania jakiegoœ elementu
 	window.setVerticalSyncEnabled(true);
 
@@ -36,13 +39,7 @@ int main(int argc, char * argv[])
 			{
 				window.close();
 			}
-			else
-			{
-
-
-
-
-				/* if ((event.type == Event::MouseButtonPressed))
+			else if ((event.type == Event::MouseButtonPressed))
 			{
 				if (!mouseGuide)
 				{
@@ -74,6 +71,10 @@ int main(int argc, char * argv[])
 					}
 				}
 			}
+			else if (event.type == sf::Event::KeyPressed)
+			{
+				testowy->setSize(event.key.code);
+			}
 			if (mouseGuide)
 			{
 				if ((event.type == Event::MouseMoved))
@@ -86,13 +87,10 @@ int main(int argc, char * argv[])
 						mouseGuide = false;
 				}
 			}
-
-		}*/
-				window.clear(Color::Red);
-				(*testowy).draw(window, RenderStates::Default);
-				//UInstance.displayCurrent(mySwitch, window,nowy,showList,triangle);
+				window.clear(Color::Blue);
+			//	(*testowy).draw(window, RenderStates::Default);
+				UInstance.displayCurrent(mySwitch, window,nowy,showList,testowy);
 				window.display();
-			}
 		}
 	}
 
