@@ -1,8 +1,14 @@
-#include <iostream>
-#include "Classes.h"
+#include "Project.h"
+#include "UIPart.h"
+#include "Element.h"
+#include "Furniture.h"
+#include "Plane.h"
+#include "UI.h"
+#include "UIElement.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <windows.h>
+
 using namespace std;
 using namespace sf;
 
@@ -64,6 +70,12 @@ int main(int argc, char * argv[])
 					{
 						switch (count)
 						{
+							case 0:
+								if (showList)
+									showList = 0;
+								else
+									showList = 1;
+								break;
 						case 3:
 							window.close();
 							break;
@@ -88,17 +100,11 @@ int main(int argc, char * argv[])
 						mouseGuide = false;
 				}
 			}
-			else
-			{
-				showList = UInstance.isMouseOverHim(mySwitch, window, Mouse::getPosition(window));
-			}
+
 				window.clear(Color::Blue);
 			//	(*testowy).draw(window, RenderStates::Default);
-				if (showList)
-				{
-			//		window.draw(test1);
-					//UInstance.furnitureList->drawList(UInstance.furnitureList->ourlist, window);
-				}
+				//UInstance.furnitureList->drawList(UInstance.furnitureList->ourlist, window);
+
 				UInstance.displayCurrent(mySwitch, window,nowy,showList,testowy);
 				window.display();
 		}

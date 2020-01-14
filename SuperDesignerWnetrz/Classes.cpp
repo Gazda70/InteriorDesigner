@@ -183,8 +183,9 @@ void UI::displayCurrent(UIPart current, RenderWindow &window, Plane &myCanvas, b
 		myCanvas.draw(window, RenderStates::Default);
 		if (showList)
 		{
-		//	this->furnitureList->drawList(this->furnitureList->ourlist, window);
+			this->furnitureList->drawList(this->furnitureList->ourlist, window);
 		}
+		//if(showList)
 		testowy->draw(window, RenderStates::Default);
 		break;
 	}
@@ -286,12 +287,12 @@ void UI::createWorkplace()
 	workPlace.push_back(new UIElement(((temp_x / 16) * 3), (temp_y / 9), ((temp_x / 32) * 25), (temp_y / 18),
 		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, - 1, Color::Black,"Wyjdz" ));
 
-	Vector2f startList = ksztalt->getInteractionWindow().getOrigin();
-	FloatRect hookSize = ksztalt->getInteractionWindow().getGlobalBounds();
-	/*static_cast<unsigned int>(hookSize.width / 2),
-		static_cast<unsigned int>(hookSize.height / 2), static_cast<unsigned int>(startList.x), static_cast<unsigned int>(startList.y),*/
-	furnitureList = new DropDownList(100, 
-		100,400,400,
+	Vector2f startList = ksztalt->getInteractionWindow().getPosition();
+	FloatRect hookSize = ksztalt->getInteractionWindow().getLocalBounds();
+	cout << hookSize.width << endl;
+	startList.y += hookSize.height;
+	furnitureList = new DropDownList(static_cast<unsigned int>(hookSize.width),
+		static_cast<unsigned int>(hookSize.height / 2), static_cast<unsigned int>(startList.x), static_cast<unsigned int>(startList.y),
 		Color::Green, 15, Color::Black, Text::Style::Italic, Text::Style::Regular, -5, Color::Black );
 	furnitureList->addPart("Stol");
 	furnitureList->addPart("Fotel");
@@ -300,12 +301,10 @@ void UI::createWorkplace()
 }
 void DropDownList::addPart(string another)
 {
-	Vector2f temp;
-	temp.y = helpy;
+	unsigned int temp = helpy;
 	helpy += height;
-	unsigned int x_cor = static_cast<unsigned int>(temp.x);
-	unsigned int y_cor = static_cast<unsigned int>(temp.y);
-	UIElement* nextone = new UIElement(width, height, x_cor, y_cor, myColor,
+	helpx += x_axis;
+	UIElement* nextone = new UIElement(width, height, helpx, temp, myColor,
 		textSize, tColor, tBold, tUnderline, ouThick, ouColor, another);
 	ourlist.push_back(nextone);
 }
@@ -342,6 +341,7 @@ DropDownList::DropDownList(unsigned int width, unsigned int height, unsigned int
 	this->ouThick = ouThick;
 	this->ouColor = ouColor;
 	helpy = y_axis;
+	helpx = x_axis;
 }
 
 
