@@ -14,29 +14,14 @@ using namespace sf;
 
 int main(int argc, char * argv[])
 {
-	//int count = Plane::projectNumber = 0;
-	int x = 0, y = 0;
-	/*cout << "Podaj wymiary plaszczyzny"<<endl;
-	cin >> x;
-	cin >> y;*/
-	Plane nowy = Plane(temp_x - (temp_x/16),temp_y - ((temp_y/18)*5),(temp_x/32), ((temp_y /18)*4),Color::Magenta, Color::Black, -5);
-	UI UInstance;
-	UInstance.createMainMenu();
-	UInstance.createWorkplace();
-	bool showList = 0;
-	UIPart mySwitch = UIPart:: MainMenu;
-	RenderWindow window{ VideoMode(temp_x,temp_y),"Project " };
-	//nowy.myplane().getSize().x/2
-	//nowy.myplane().getSize().y/2
-	Furniture* testowy = new Furniture(0.2f, 0.2f, nowy.myplane().getSize().x / 2,
-		nowy.myplane().getSize().y / 1.5f, 0, Color::Red, textureFile);
-	bool mouseGuide = false; // okreœla czy mysz jest w trakcie przeci¹gania jakiegoœ elementu
-	window.setVerticalSyncEnabled(true);
-	RectangleShape test1;
-	Vector2f help = Vector2f(200, 300);
-	test1.setFillColor(Color::Black);
-	test1.setSize(help);
-	test1.setPosition(help);
+	RenderWindow window { VideoMode(1600,900),"Project " };
+	Project* super = new Project(1600, 900);
+	super->addFurniture("DobreKrzeslo.png");
+	super->addFurniture("DobryFotel.png");
+	super->addFurniture("LepszyStol.png");
+	super->addFurniture("DobreLozko.png");
+	super->runProject(window);
+	/*window.setVerticalSyncEnabled(true);
 	while (window.isOpen())
 	{
 		// check all the window's events that were triggered since the last iteration of the loop
@@ -86,7 +71,7 @@ int main(int argc, char * argv[])
 			}
 			else if (event.type == sf::Event::KeyPressed)
 			{
-				testowy->setSize(event.key.code);
+				testowy->handleKey(event.key.code);
 			}
 			if (mouseGuide)
 			{
@@ -102,13 +87,10 @@ int main(int argc, char * argv[])
 			}
 
 				window.clear(Color::Blue);
-			//	(*testowy).draw(window, RenderStates::Default);
-				//UInstance.furnitureList->drawList(UInstance.furnitureList->ourlist, window);
-
 				UInstance.displayCurrent(mySwitch, window,nowy,showList,testowy);
 				window.display();
 		}
-	}
+	}*/
 
 		system("pause");
 		//cin.get();

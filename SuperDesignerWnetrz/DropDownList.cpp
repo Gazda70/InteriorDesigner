@@ -1,15 +1,15 @@
 #include "DropDowList.h"
 
-void DropDownList::addPart(string another)
+void DropDownList::addPart(string another, Furniture* toFollow)
 {
 	unsigned int temp = helpy;
 	helpy += height;
 	helpx += x_axis;
-	UIElement* nextone = new UIElement(width, height, helpx, temp, myColor,
-		textSize, tColor, tBold, tUnderline, ouThick, ouColor, another);
+	Button* nextone = new Button(width, height, helpx, temp, myColor,
+		textSize, tColor, tBold, tUnderline, ouThick, ouColor, another, toFollow);
 	ourlist.push_back(nextone);
 }
-void DropDownList::drawList(vector<UIElement*>& myList, RenderWindow & window)
+void DropDownList::drawList(vector<Button*>& myList, RenderWindow & window)
 {
 
 	for (int c = 0; c < myList.size(); c++)
@@ -17,6 +17,18 @@ void DropDownList::drawList(vector<UIElement*>& myList, RenderWindow & window)
 		(*myList[c]).draw(window, RenderStates::Default);
 	}
 	return;
+}
+
+Furniture* DropDownList::goThrough(Vector2i mouse)
+{
+	for (int i = 0; i < ourlist.size(); i++)
+	{
+		if (ourlist[i]->getInteractionWindow().getGlobalBounds()
+			.contains(static_cast<float>(mouse.x), static_cast<float>(mouse.y)))
+		{
+			return ourlist[i]->getAct();
+		}
+	}
 }
 
 DropDownList::DropDownList(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,

@@ -1,24 +1,30 @@
 #include"UI.h"
-
+UI::UI(unsigned int res_x, unsigned int res_y)
+{
+	this->res_x = res_x;
+	this->res_y = res_y;
+	this->showList = 0;
+}
 void UI::createMainMenu()
 {
+	cout << res_x << endl;
+	cout << res_y << endl;
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 9) * 2, temp_x / 4, (temp_y / 18),
-		Color::Green, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Super Designer Wnetrz"));// g³ówny zielony prostok¹t
+		Color::Green, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Super Designer Wnetrz"));// glówny zielony prostokat
 
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (temp_y / 3),
 		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Nowy projekt"));// nowy projekt
 
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 2.5),
-		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Otworz istniejacy"));// otwórz istniej¹cy
+		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Otworz istniejacy"));// otwórz istniejacy
 
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 2.13),
 		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Ustawienia"));// ustawienia
 
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 1.85),
 		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wyjdz"));// wyjdz
-
 }
-void UI::displayCurrent(UIPart current, RenderWindow &window, Plane &myCanvas, bool showList, Furniture* testowy)
+void UI::displayCurrent(UIPart current, RenderWindow& window, Plane &myCanvas, bool showList, Furniture* testowy)
 {
 	switch (current)
 	{
@@ -74,6 +80,7 @@ int UI::indexList(UIPart current, RenderWindow& window, Vector2i mousePos)
 	}
 	return count;
 }
+
 bool UI::isMouseOverHim(UIPart current, RenderWindow & window, Vector2i mousePos)
 {
 	int count = 0;
@@ -97,7 +104,7 @@ bool UI::isMouseOverHim(UIPart current, RenderWindow & window, Vector2i mousePos
 	}
 	return false;
 }
-void UI::displayUI(vector<UIElement*>& myList, RenderWindow &window)
+void UI::displayUI(vector<UIElement*>& myList, RenderWindow& window)
 {
 	for (int i = 0; i < myList.size(); i++)
 	{
@@ -120,18 +127,18 @@ vector<UIElement*>& UI::getList(UIPart current)
 
 void UI::createWorkplace()
 {
-	UIElement *ksztalt = new UIElement(((temp_x / 16) * 3), (temp_y / 9), (temp_x / 32), (temp_y / 18),
+	UIElement *ksztalt = new UIElement(((res_x / 16) * 3), (res_y / 9), (res_x / 32), (res_y / 18),
 		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Ksztalty");
 
 	workPlace.push_back(ksztalt);
 
-	workPlace.push_back(new UIElement(((temp_x / 16) * 3), (temp_y / 9), ((temp_x / 32) * 9), (temp_y / 18),
+	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 9), (res_y / 18),
 		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Pomoc"));
 
-	workPlace.push_back(new UIElement(((temp_x / 16) * 3), (temp_y / 9), ((temp_x / 32) * 17), (temp_y / 18),
+	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 17), (res_y / 18),
 		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Zapisz"));
 
-	workPlace.push_back(new UIElement(((temp_x / 16) * 3), (temp_y / 9), ((temp_x / 32) * 25), (temp_y / 18),
+	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 25), (res_y / 18),
 		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wyjdz"));
 
 	Vector2f startList = ksztalt->getInteractionWindow().getPosition();
@@ -141,8 +148,4 @@ void UI::createWorkplace()
 	furnitureList = new DropDownList(static_cast<unsigned int>(hookSize.width),
 		static_cast<unsigned int>(hookSize.height / 2), static_cast<unsigned int>(startList.x), static_cast<unsigned int>(startList.y),
 		Color::Green, 15, Color::Black, Text::Style::Italic, Text::Style::Regular, -5, Color::Black);
-	furnitureList->addPart("Stol");
-	furnitureList->addPart("Fotel");
-	furnitureList->addPart("Krzeslo");
-	furnitureList->addPart("Lozko");
 }

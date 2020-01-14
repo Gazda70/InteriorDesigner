@@ -24,6 +24,7 @@ Furniture::Furniture(float width, float height,
 	ourImage.setOrigin(origin);
 	w_scale = 1;
 	h_scale = 1;
+	angle = 0;
 	setSize(width, height);
 	setOffset(x_axis, y_axis);
 	setRotation(degrees);
@@ -71,26 +72,38 @@ void Furniture::stopGuide()
 	guided = false;
 }
 
-void Furniture::setSize(Keyboard::Key inputBut)
+void Furniture::handleKey(Keyboard::Key inputBut)
 {
-	if (previous != inputBut)
+	if (inputBut == Keyboard::Right)
 	{
-		w_scale = 1;
-		h_scale = 1;
+		angle += 4.0f;
+		ourImage.setRotation(angle);
 	}
-	if (inputBut == Keyboard::P)
+	else if (inputBut == Keyboard::Left)
 	{
-		w_scale *= 1.001f;
-		h_scale *= 1.001f;
-		ourImage.scale(w_scale, h_scale);
+		angle -= 4.0f;
+		ourImage.setRotation(angle);
 	}
-	else if (inputBut == Keyboard::O)
-	{
-		w_scale *= 0.999f;
-		h_scale *= 0.999f;
-		ourImage.scale(w_scale, h_scale);
-	}
-	previous = inputBut;
+
+		if (previous != inputBut)
+		{
+			w_scale = 1;
+			h_scale = 1;
+		}
+		if (inputBut == Keyboard::P)
+		{
+			w_scale *= 1.001f;
+			h_scale *= 1.001f;
+			ourImage.scale(w_scale, h_scale);
+		}
+		else if (inputBut == Keyboard::O)
+		{
+			w_scale *= 0.999f;
+			h_scale *= 0.999f;
+			ourImage.scale(w_scale, h_scale);
+		}
+		previous = inputBut;
+
 }
 void Furniture::setSize(float width, float height)
 {

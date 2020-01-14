@@ -5,10 +5,9 @@
 #include <iostream>
 #include <vector>
 
+constexpr const char* fontFile = "times.ttf";
 constexpr const int temp_x = 1600;
 constexpr const int temp_y = 900;
-constexpr const char* fontFile = "times.ttf";
-constexpr const char* textureFile = "DobreKrzeslo.png";
 
 using namespace sf;
 class Element
