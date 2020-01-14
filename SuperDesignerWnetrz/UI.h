@@ -11,7 +11,7 @@ public:
 	UI(unsigned int res_x, unsigned int res_y);
 	void createMainMenu();
 	void createWorkplace();
-	void displayCurrent(UIPart current, RenderWindow& window, Plane &myPlane, bool showList, Furniture* testowy);
+	void displayCurrent(UIPart current, RenderWindow& window, Plane &myPlane, bool showList);
 	int indexList(UIPart current, RenderWindow& window, Vector2i mousePos);
 	bool showList;
 	bool isMouseOverHim(UIPart current, RenderWindow& window, Vector2i mousePos);

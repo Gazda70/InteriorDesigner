@@ -31,17 +31,19 @@ Furniture::Furniture(float width, float height,
 	setColor(myColor);
 }
 
-void Furniture::shallGuide(Vector2i mousePos, bool& isGuide)
+bool Furniture::shallGuide(Vector2i mousePos, bool& isGuide)
 {
 	if (!isGuide)
 	{
-		if (ourImage.getLocalBounds().contains(Vector2f(mousePos))
-			&& Mouse::isButtonPressed(Mouse::Left))
+		if (ourImage.getGlobalBounds().contains(Vector2f(mousePos)))
+		//	&& Mouse::isButtonPressed(Mouse::Left))
 		{
 			isGuide = true;
 			guided = true;
+			return true;
 		}
 	}
+	return false;
 }
 
 void Furniture::moveAround(Vector2i mousePos, Plane& playground)

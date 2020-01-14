@@ -24,7 +24,7 @@ void UI::createMainMenu()
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 1.85),
 		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wyjdz"));// wyjdz
 }
-void UI::displayCurrent(UIPart current, RenderWindow& window, Plane &myCanvas, bool showList, Furniture* testowy)
+void UI::displayCurrent(UIPart current, RenderWindow& window, Plane &myCanvas, bool showList)
 {
 	switch (current)
 	{
@@ -38,8 +38,6 @@ void UI::displayCurrent(UIPart current, RenderWindow& window, Plane &myCanvas, b
 		{
 			this->furnitureList->drawList(this->furnitureList->ourlist, window);
 		}
-		//if(showList)
-		testowy->draw(window, RenderStates::Default);
 		break;
 	}
 }

@@ -13,7 +13,7 @@ class Furniture : public Element
 		Furniture() = default;
 		Furniture(float width, float height,
 			unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor, string textureFile);
-		void shallGuide(Vector2i mousePos, bool& isGuide);
+		bool shallGuide(Vector2i mousePos, bool& isGuide);
 		void moveAround(Vector2i mousePos,Plane& playground);
 		void stopGuide();
 		void handleKey(Keyboard::Key inputBut);

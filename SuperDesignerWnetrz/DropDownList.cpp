@@ -29,6 +29,7 @@ Furniture* DropDownList::goThrough(Vector2i mouse)
 			return ourlist[i]->getAct();
 		}
 	}
+	return nullptr;
 }
 
 DropDownList::DropDownList(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,

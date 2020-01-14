@@ -27,6 +27,8 @@ void Project::addFurniture(string textureFile)
 
 void Project::runProject(RenderWindow& window)
 {
+	Furniture* toSpawn;
+	Furniture* toGuide = nullptr;
 	window.setVerticalSyncEnabled(true);
 	while (window.isOpen())
 	{
@@ -71,30 +73,87 @@ void Project::runProject(RenderWindow& window)
 							window.close();
 							break;
 						}
-						zbiorMebli[0]->shallGuide(mPosition, mouseGuide);
+						if (projectInterface->showList)
+						{
+						toSpawn = projectInterface->furnitureList->goThrough(mPosition);
+						if (toSpawn)
+						{
+							naScenie.push_back(toSpawn);
+						}
+						}
+						if (!naScenie.empty())
+						{
+							int i = 0;
+							while (i < naScenie.size() && !mouseGuide)
+							{
+								if (naScenie[i]->shallGuide(mPosition, mouseGuide))
+								{
+									toGuide = naScenie[i];
+								}
+								i++;
+							}
+						}
 					}
 				}
 			}
-			else if (event.type == sf::Event::KeyPressed)
+			else if (event.type == Event::MouseButtonReleased)
 			{
-				zbiorMebli[0]->handleKey(event.key.code);
+				mouseGuide = false;
+			}
+			else if (event.type ==Event::KeyPressed)
+			{
+				if (toGuide)
+				{
+					if (event.key.code == Keyboard::E)
+					{
+						removeFromScene(toGuide);
+						mouseGuide = false;
+					}
+					else
+					{
+						toGuide->handleKey(event.key.code);
+					}
+				}
 			}
 			if (mouseGuide)
 			{
 				if ((event.type == Event::MouseMoved))
 				{
-					zbiorMebli[0]->moveAround(Mouse::getPosition(window), *projectPlane);
+					if (toGuide)
+					toGuide->moveAround(Mouse::getPosition(window), *projectPlane);
 				}
 				else if ((event.type == Event::MouseButtonReleased))
 				{
-					zbiorMebli[0]->stopGuide();
+					toGuide->stopGuide();
 					mouseGuide = false;
 				}
 			}
 
 			window.clear(Color::Blue);
-			projectInterface->displayCurrent(mySwitch, window, *projectPlane, projectInterface->showList, zbiorMebli[0]);
+			projectInterface->displayCurrent(mySwitch, window, *projectPlane, projectInterface->showList);
+			drawOnScene(window);
 			window.display();
+		}
+	}
+}
+
+void Project::drawOnScene(RenderWindow & window)
+{
+	if (!naScenie.empty())
+	{
+		for (int k = 0; k < naScenie.size(); k++)
+			naScenie[k]->draw(window, RenderStates::Default);
+	}
+}
+
+void Project::removeFromScene(Furniture * toRemove)
+{
+	int i = 0;
+	while (i < naScenie.size())
+	{
+		if (naScenie[i] == toRemove)
+		{
+			naScenie.erase(naScenie.begin()+i);
 		}
 	}
 }

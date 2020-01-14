@@ -1,8 +1,4 @@
-﻿  DropDownList.cpp
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\dropdownlist.cpp(15): warning C4018: '<': signed/unsigned mismatch
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\dropdownlist.cpp(24): warning C4018: '<': signed/unsigned mismatch
-  Main.cpp
-  Project.cpp
+﻿  Project.cpp
 c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(21): warning C4244: 'argument': conversion from 'T' to 'unsigned int', possible loss of data
           with
           [
@@ -13,9 +9,7 @@ c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\
           [
               T=float
           ]
-  UI.cpp
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\ui.cpp(109): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\ui.cpp(126): warning C4715: 'UI::getList': not all control paths return a value
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\dropdownlist.cpp(32): warning C4715: 'DropDownList::goThrough': not all control paths return a value
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(87): warning C4018: '<': signed/unsigned mismatch
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(144): warning C4018: '<': signed/unsigned mismatch
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(152): warning C4018: '<': signed/unsigned mismatch
   SuperDesignerWnetrz.vcxproj -> C:\Users\gazda\Desktop\Politechniczne studia\PK3\ProjektPK3\SuperDesignerWnetrz\Debug\SuperDesignerWnetrz.exe
