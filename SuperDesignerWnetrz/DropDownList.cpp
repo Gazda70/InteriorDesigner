@@ -1,12 +1,12 @@
 #include "DropDowList.h"
 
-void DropDownList::addPart(string another, Furniture* toFollow)
+void DropDownList::addPart(string another, Color myColor, Furniture* toFollow)
 {
 	unsigned int temp = helpy;
 	helpy += height;
 	helpx += x_axis;
 	Button* nextone = new Button(width, height, helpx, temp, myColor,
-		textSize, tColor, tBold, tUnderline, ouThick, ouColor, another, toFollow);
+		textSize,tColor, tBold, tUnderline, ouThick, ouColor, another, toFollow);
 	ourlist.push_back(nextone);
 }
 void DropDownList::drawList(vector<Button*>& myList, RenderWindow & window)
@@ -19,14 +19,31 @@ void DropDownList::drawList(vector<Button*>& myList, RenderWindow & window)
 	return;
 }
 
-Furniture* DropDownList::goThrough(Vector2i mouse)
+void DropDownList::setGlobalTarget(Furniture * toFollow)
+{
+	for (auto iter : ourlist)
+	{
+		iter->setAct(toFollow);
+	}
+
+}
+
+Furniture* DropDownList::goThrough(Vector2i mouse, listType change)
 {
 	for (int i = 0; i < ourlist.size(); i++)
 	{
 		if (ourlist[i]->getInteractionWindow().getGlobalBounds()
 			.contains(static_cast<float>(mouse.x), static_cast<float>(mouse.y)))
 		{
-			return ourlist[i]->getAct();
+			if (change == furnitureT)
+			{
+				return ourlist[i]->getAct();
+			}
+			else if (change == colorT)
+			{
+				ourlist[i]->getAct()->setColor(ourlist[i]->getMyColor());
+				return nullptr;
+			}
 		}
 	}
 	return nullptr;
@@ -48,3 +65,5 @@ DropDownList::DropDownList(unsigned int width, unsigned int height, unsigned int
 	helpy = y_axis;
 	helpx = x_axis;
 }
+
+

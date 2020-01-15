@@ -21,7 +21,7 @@ void Project::addFurniture(string textureFile)
 		projectPlane->myplane().getSize().y / 1.5f, 0, Color::Red, textureFile);
 	int help = textureFile.size();
 	string name = textureFile.erase(help-4);
-	this->projectInterface->furnitureList->addPart(name, temp);
+	this->projectInterface->furnitureList->addPart(name,Color::Green, temp);
 	zbiorMebli.push_back(temp);
 }
 
@@ -64,21 +64,28 @@ void Project::runProject(RenderWindow& window)
 						switch (count)
 						{
 						case 0:
-							if (projectInterface->showList)
-								projectInterface->showList = 0;
+							if (projectInterface->showFurnitureList)
+								projectInterface->showFurnitureList = 0;
 							else
-								projectInterface->showList = 1;
+								projectInterface->showFurnitureList = 1;
+							break;
+						case 1:
+							if (projectInterface->showColorList)
+								projectInterface->showColorList = 0;
+							else
+								projectInterface->showColorList = 1;
 							break;
 						case 3:
 							window.close();
 							break;
 						}
-						if (projectInterface->showList)
+						if (projectInterface->showFurnitureList)
 						{
-						toSpawn = projectInterface->furnitureList->goThrough(mPosition);
+						toSpawn = projectInterface->furnitureList->goThrough(mPosition, DropDownList::listType::furnitureT);
 						if (toSpawn)
 						{
-							naScenie.push_back(toSpawn);
+							Furniture* help = new Furniture(*toSpawn);
+							naScenie.push_back(help);
 						}
 						}
 						if (!naScenie.empty())
@@ -89,9 +96,14 @@ void Project::runProject(RenderWindow& window)
 								if (naScenie[i]->shallGuide(mPosition, mouseGuide))
 								{
 									toGuide = naScenie[i];
+									projectInterface->colorList->setGlobalTarget(toGuide);
 								}
 								i++;
 							}
+						}
+						if (projectInterface->showColorList)
+						{
+							projectInterface->colorList->goThrough( mPosition, DropDownList::listType:: colorT);
 						}
 					}
 				}
@@ -130,7 +142,7 @@ void Project::runProject(RenderWindow& window)
 			}
 
 			window.clear(Color::Blue);
-			projectInterface->displayCurrent(mySwitch, window, *projectPlane, projectInterface->showList);
+			projectInterface->displayCurrent(mySwitch, window, *projectPlane, projectInterface->showFurnitureList);
 			drawOnScene(window);
 			window.display();
 		}
@@ -154,6 +166,10 @@ void Project::removeFromScene(Furniture * toRemove)
 		if (naScenie[i] == toRemove)
 		{
 			naScenie.erase(naScenie.begin()+i);
+		}
+		else
+		{
+			i++;
 		}
 	}
 }

@@ -90,4 +90,5 @@ UIElement::UIElement(unsigned int width, unsigned int height, unsigned int x_axi
 	}
 	setShape(width, height, x_axis, y_axis, degrees, myColor);
 	setText(message, textSize, tColor, tBold, tUnderline);
+	this->myColor = myColor;
 }

@@ -13,10 +13,12 @@ public:
 	void createWorkplace();
 	void displayCurrent(UIPart current, RenderWindow& window, Plane &myPlane, bool showList);
 	int indexList(UIPart current, RenderWindow& window, Vector2i mousePos);
-	bool showList;
+	bool showFurnitureList;
+	bool showColorList;
 	bool isMouseOverHim(UIPart current, RenderWindow& window, Vector2i mousePos);
 	vector<UIElement*>& getList(UIPart current);
 	DropDownList* furnitureList;
+	DropDownList* colorList;
 private:
 	vector<UIElement*> mainMenu;
 	vector<UIElement*> workPlace;

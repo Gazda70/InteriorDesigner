@@ -31,6 +31,24 @@ Furniture::Furniture(float width, float height,
 	setColor(myColor);
 }
 
+Furniture::Furniture(const Furniture & toCopy)
+{
+	ourImage.setTexture(toCopy.ourTexture);
+	FloatRect temp = ourImage.getGlobalBounds();
+	Vector2f origin = ourImage.getOrigin();
+	origin.x += temp.width / 2;
+	origin.y += temp.height / 2;
+	ourImage.setOrigin(origin);
+	w_scale = 1;
+	h_scale = 1;
+	angle = 0;
+	setSize(w_scale/2, h_scale/2);
+	setOffset(toCopy.x_axis, toCopy.y_axis);
+	setRotation(toCopy.degrees);
+	setColor(toCopy.myColor);
+
+}
+
 bool Furniture::shallGuide(Vector2i mousePos, bool& isGuide)
 {
 	if (!isGuide)
@@ -107,12 +125,24 @@ void Furniture::handleKey(Keyboard::Key inputBut)
 		previous = inputBut;
 
 }
+void Furniture::saySpawn(bool spawn)
+{
+	if (spawn == true)
+	{
+		spawned = true;
+	}
+	else if(spawn == false)
+	{
+		spawned = false;
+	}
+}
 void Furniture::setSize(float width, float height)
 {
 	this->ourImage.setScale(width, height);
 }
 void Furniture::setSize(unsigned int width, unsigned int height)
 {
+	this->ourImage.setScale(width, height);
 }
 void Furniture::setOffset(unsigned int x_axis, unsigned int y_axis)
 {

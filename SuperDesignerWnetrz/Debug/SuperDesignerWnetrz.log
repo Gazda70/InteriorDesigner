@@ -1,15 +1,24 @@
-﻿  Project.cpp
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(21): warning C4244: 'argument': conversion from 'T' to 'unsigned int', possible loss of data
+﻿  UIElement.cpp
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\uielement.cpp(5): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\uielement.cpp(26): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(20): warning C4244: 'argument': conversion from 'T' to 'unsigned int', possible loss of data
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\uielement.cpp(27): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(87): warning C4018: '<': signed/unsigned mismatch
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(144): warning C4018: '<': signed/unsigned mismatch
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(152): warning C4018: '<': signed/unsigned mismatch
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\uielement.cpp(59): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\uielement.cpp(60): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\uielement.cpp(62): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   SuperDesignerWnetrz.vcxproj -> C:\Users\gazda\Desktop\Politechniczne studia\PK3\ProjektPK3\SuperDesignerWnetrz\Debug\SuperDesignerWnetrz.exe

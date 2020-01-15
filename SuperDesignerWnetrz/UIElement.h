@@ -32,6 +32,6 @@ protected:
 	//private:
 	Text myText;
 	Vector2f size;//wektor okreslajacy wysokosc i szerokosc obiektu
-//	Color myColor;
+	//Color myColor;
 	Font myFont;
 };

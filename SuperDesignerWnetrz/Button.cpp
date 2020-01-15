@@ -13,3 +13,13 @@ Furniture * Button::getAct()
 {
 	return this->toActivate;
 }
+
+void Button::setAct(Furniture * toFollow)
+{
+	toActivate = toFollow;
+}
+
+Color Button::getMyColor()
+{
+	return this->myColor;
+}

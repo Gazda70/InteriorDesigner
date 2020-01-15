@@ -3,7 +3,8 @@ UI::UI(unsigned int res_x, unsigned int res_y)
 {
 	this->res_x = res_x;
 	this->res_y = res_y;
-	this->showList = 0;
+	this->showFurnitureList = 0;
+	this->showColorList = 0;
 }
 void UI::createMainMenu()
 {
@@ -34,9 +35,13 @@ void UI::displayCurrent(UIPart current, RenderWindow& window, Plane &myCanvas, b
 	case WorkPlace:
 		displayUI(this->workPlace, window);
 		myCanvas.draw(window, RenderStates::Default);
-		if (showList)
+		if (showFurnitureList)
 		{
 			this->furnitureList->drawList(this->furnitureList->ourlist, window);
+		}
+		if (showColorList)
+		{
+			this->colorList->drawList(this->colorList->ourlist, window);
 		}
 		break;
 	}
@@ -128,17 +133,6 @@ void UI::createWorkplace()
 	UIElement *ksztalt = new UIElement(((res_x / 16) * 3), (res_y / 9), (res_x / 32), (res_y / 18),
 		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Ksztalty");
 
-	workPlace.push_back(ksztalt);
-
-	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 9), (res_y / 18),
-		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Pomoc"));
-
-	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 17), (res_y / 18),
-		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Zapisz"));
-
-	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 25), (res_y / 18),
-		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wyjdz"));
-
 	Vector2f startList = ksztalt->getInteractionWindow().getPosition();
 	FloatRect hookSize = ksztalt->getInteractionWindow().getLocalBounds();
 	cout << hookSize.width << endl;
@@ -146,4 +140,27 @@ void UI::createWorkplace()
 	furnitureList = new DropDownList(static_cast<unsigned int>(hookSize.width),
 		static_cast<unsigned int>(hookSize.height / 2), static_cast<unsigned int>(startList.x), static_cast<unsigned int>(startList.y),
 		Color::Green, 15, Color::Black, Text::Style::Italic, Text::Style::Regular, -5, Color::Black);
+
+	workPlace.push_back(ksztalt);
+	ksztalt = new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 17), (res_y / 18),
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Kolor");
+
+	workPlace.push_back(ksztalt);
+	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 9), (res_y / 18),
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Pomoc"));
+
+	startList = ksztalt->getInteractionWindow().getPosition();
+	 hookSize = ksztalt->getInteractionWindow().getLocalBounds();
+	cout << hookSize.width << endl;
+	startList.y += hookSize.height;
+	colorList = new DropDownList(static_cast<unsigned int>(hookSize.width),
+		static_cast<unsigned int>(hookSize.height / 2), static_cast<unsigned int>(startList.x), static_cast<unsigned int>(startList.y),
+		Color::Green, 15, Color::Black, Text::Style::Italic, Text::Style::Regular, -5, Color::Black);
+
+	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 25), (res_y / 18),
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wyjdz"));
+	colorList->addPart("Zielony",Color::Green, nullptr);
+	colorList->addPart("Czerwony", Color::Red, nullptr);
+	colorList->addPart("Niebieski", Color::Blue, nullptr);
+	colorList->addPart("Zolty", Color::Yellow, nullptr);
 }
