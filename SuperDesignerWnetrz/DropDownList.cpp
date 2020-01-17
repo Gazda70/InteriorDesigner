@@ -19,17 +19,20 @@ void DropDownList::drawMe( RenderWindow & window, RenderStates state)
 	return;
 }
 
-void DropDownList::setGlobalTarget(Furniture * toFollow)
+void DropDownList::manageScreenBehaviour(Element * toManage, change mode)
 {
 	for (auto iter : ourlist)
 	{
-		iter->setAct(toFollow);
+		iter->manageScreenBehaviour(toManage, mode);
 	}
-
 }
-listType DropDownList::getType()
+change DropDownList::getType()
 {
 	return this->ourType;
+}
+void DropDownList::setColor(Color myColor)
+{
+	this->myColor = myColor;
 }
 DropDownList::DropDownList(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,
 	unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline, int ouThick, Color ouColor)
@@ -48,22 +51,14 @@ DropDownList::DropDownList(unsigned int width, unsigned int height, unsigned int
 	helpx = x_axis;
 }
 
-void DropDownList::manageMouseInput(Vector2i mousePos)
+void DropDownList::manageInput(Vector2i mousePos, Keyboard::Key pressed)
 {
 	for (int i = 0; i < ourlist.size(); i++)
 	{
-		ourlist[i]->manageMouseInput(mousePos);
+		ourlist[i]->manageInput(mousePos,pressed);
 		if (ourlist[i]->isActivated())
 		{
-			if (ourType == furnitureT)
-			{
-				this->chosen = ourlist[i]->getAct();
-			}
-			else if (ourType == colorT)
-			{
-				ourlist[i]->getAct()->setColor(ourlist[i]->getMyColor());
-				this->chosen =  nullptr;
-			}
+			ourlist[i]->manageScreenBehaviour(this->chosen, ourType);
 		}
 	}
 	this->chosen = nullptr;

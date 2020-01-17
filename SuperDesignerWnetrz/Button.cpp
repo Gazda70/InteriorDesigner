@@ -9,26 +9,37 @@ Button::Button(unsigned int width, unsigned int height, unsigned int x_axis, uns
 	this->toActivate = toactivate;
 }
 
-void Button::manageMouseInput(Vector2i mousePos)
+void Button::manageInput(Vector2f mousePos, Keyboard pressed)
 {
 }
 
-Furniture * Button::getAct()
+void Button::manageScreenBehaviour(Element* toManage, change mode)
 {
-	return this->toActivate;
-}
 
+	if (mode == furnitureT)
+	{
+		toManage = toActivate;
+	}
+	else if (mode == colorT)
+	{
+		toManage->setColor(myColor);
+		toManage = nullptr;
+	}
+	else if (mode == set)
+	{
+		this->toActivate = toManage;
+	}
+}
+void Button::setColor(Color myColor)
+{
+	this->myColor = myColor;
+}
 void Button::setAct(Furniture * toFollow)
 {
 	toActivate = toFollow;
 }
-
-Color Button::getMyColor()
-{
-	return this->myColor;
-}
-
 void Button::drawMe(RenderWindow & window, RenderStates state)
 {
 	window.draw(this->interactionWindow, state);
+	window.draw(this->myText, state);
 }

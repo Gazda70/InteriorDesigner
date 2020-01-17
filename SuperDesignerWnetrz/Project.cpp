@@ -12,7 +12,7 @@ Project::Project(unsigned int screen_res_width, unsigned int screen_res_height)
 	this->screen_res_width = screen_res_width;
 	this->screen_res_height = screen_res_height;
 	 mouseGuide = false;
-	 UIPart mySwitch = UIPart::MainMenu;
+	 change mySwitch = change::MainMenu;
 }
 
 void Project::addFurniture(string textureFile)
@@ -79,11 +79,11 @@ void Project::runProject(RenderWindow& window)
 						}
 						if (projectInterface->showFurnitureList)
 						{
-						 projectInterface->furnitureList->manageMouseInput(mPosition);
+						 projectInterface->furnitureList->manageInput(mPosition,Keyboard::Key::Unknown);
 						 toSpawn = projectInterface->furnitureList->chosen;
 						if (toSpawn)
 						{
-							Furniture* help = new Furniture(*toSpawn);
+							Element* help = toSpawn;
 							naScenie.push_back(help);
 						}
 						}
@@ -92,24 +92,25 @@ void Project::runProject(RenderWindow& window)
 							int i = 0;
 							while (i < naScenie.size() && !mouseGuide)
 							{
-								naScenie[i]->manageMouseInput(mPosition);
+								naScenie[i]->manageInput(mPosition,Keyboard::Key::Unknown);
 								if (naScenie[i]->isActivated())
 								{
 									toGuide = naScenie[i];
-									projectInterface->colorList->setGlobalTarget(toGuide);
+									projectInterface->colorList->manageScreenBehaviour(toGuide,set);
 								}
 								i++;
 							}
 						}
 						if (projectInterface->showColorList)
 						{
-							projectInterface->furnitureList->manageMouseInput(mPosition);
+							projectInterface->furnitureList->manageInput(mPosition, Keyboard::Key::Unknown);
 						}
 					}
 				}
 			}
 			else if (event.type == Event::MouseButtonReleased)
 			{
+				toGuide->manageScreenBehaviour(nullptr, unset);
 				mouseGuide = false;
 			}
 			else if (event.type ==Event::KeyPressed)
@@ -123,7 +124,7 @@ void Project::runProject(RenderWindow& window)
 					}
 					else
 					{
-						toGuide->handleKey(event.key.code);
+						toGuide->manageInput({ 0,0 },event.key.code);
 					}
 				}
 			}
@@ -132,11 +133,19 @@ void Project::runProject(RenderWindow& window)
 				if ((event.type == Event::MouseMoved))
 				{
 					if (toGuide)
-					toGuide->moveAround(Mouse::getPosition(window), *projectPlane);
+					{
+						toGuide->manageScreenBehaviour(projectPlane->traveler, set);
+						projectPlane->manageInput(Mouse::getPosition(window), Keyboard::Key::Unknown);
+						if (projectPlane->isActivated())
+						{
+							toGuide->setPosition(Mouse::getPosition(window));
+						}
+					}
+
 				}
 				else if ((event.type == Event::MouseButtonReleased))
 				{
-					toGuide->stopGuide();
+					toGuide->manageScreenBehaviour(nullptr,unset);
 					mouseGuide = false;
 				}
 			}
@@ -158,7 +167,7 @@ void Project::drawOnScene(RenderWindow & window)
 	}
 }
 
-void Project::removeFromScene(Furniture * toRemove)
+void Project::removeFromScene(Element * toRemove)
 {
 	int i = 0;
 	while (i < naScenie.size())

@@ -1,4 +1,5 @@
 #pragma once
+#include "Enums.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <string>
@@ -14,8 +15,11 @@ class Element
 {
 public:
 	virtual void drawMe(RenderWindow& window, RenderStates state) = 0;
-	virtual void manageMouseInput(Vector2i mousePos) = 0;
+	virtual void manageInput(Vector2i mousePos, Keyboard::Key pressed) = 0;
+	virtual void manageScreenBehaviour(Element*toManage,change mode) = 0;
+	virtual void setColor(Color myColor) = 0;
 	virtual bool isActivated() = 0;
+	virtual void setPosition(Vector2i position) = 0;
 protected:
 	Element() = default;
 	Element(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor);

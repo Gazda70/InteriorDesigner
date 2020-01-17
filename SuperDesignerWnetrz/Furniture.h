@@ -15,12 +15,10 @@ class Furniture : public Element
 			unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor, string textureFile);
 		Furniture(const Furniture &toCopy);
 		void drawMe(RenderWindow& window, RenderStates state);
-		void manageMouseInput(Vector2i mousePos);
+		void manageInput(Vector2i mousePos, Keyboard::Key pressed);
+		void manageScreenBehaviour(Element* toManage, change mode);
+		void setPosition(Vector2i position);
 		bool isActivated();
-		void moveAround(Vector2i mousePos,Plane& playground);
-		void stopGuide();
-		void handleKey(Keyboard::Key inputBut);
-		void saySpawn(bool spawn);
 		void setColor(Color myColor);
 	private:
 		void setSize(float width, float height);
@@ -33,6 +31,5 @@ class Furniture : public Element
 		Keyboard::Key previous;
 		Texture ourTexture;
 		Sprite ourImage;
-		bool spawned;
 		bool guided;
 	};

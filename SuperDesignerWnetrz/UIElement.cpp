@@ -81,6 +81,13 @@ bool UIElement::isActivated()
 	return activate;
 }
 
+void UIElement::setPosition(Vector2i position)
+{
+	Vector2f temp{ static_cast<float>(position.x),static_cast<float>(position.y) };
+	this->interactionWindow.setPosition(temp);
+}
+
+
 void UIElement::drawMe(RenderWindow& window, RenderStates state)
 {
 	window.draw(this->interactionWindow, state);
@@ -98,7 +105,7 @@ UIElement::UIElement(unsigned int width, unsigned int height, unsigned int x_axi
 	this->myColor = myColor;
 }
 
-void UIElement::manageMouseInput(Vector2i mousePos)
+void UIElement::manageInput(Vector2i mousePos, Keyboard::Key pressed)
 {
 	if (this->getInteractionWindow().getGlobalBounds()
 		.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
@@ -109,4 +116,7 @@ void UIElement::manageMouseInput(Vector2i mousePos)
 	{
 	activate = 0;
 	}
+}
+void UIElement::manageScreenBehaviour(Element * toManage, change mode)
+{
 }

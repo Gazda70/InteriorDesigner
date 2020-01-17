@@ -11,5 +11,6 @@
 using namespace sf;
 using namespace std;
 
-enum UIPart { MainMenu, WorkPlace };
-enum listType { furnitureT, colorT };
+enum change { MainMenu, WorkPlace, furnitureT, colorT, set, unset
+};
+

@@ -54,90 +54,74 @@ bool Furniture::isActivated()
 	return guided;
 }
 
-void Furniture:: manageMouseInput(Vector2i mousePos)
+void Furniture::manageInput(Vector2i mousePos, Keyboard::Key pressed)
 {
-		if (ourImage.getGlobalBounds().contains(Vector2f(mousePos)))
-		//	&& Mouse::isButtonPressed(Mouse::Left))
+	if (pressed == Keyboard::Key::Unknown)
+	{
+			if (ourImage.getGlobalBounds().contains(Vector2f(mousePos)))
+				//	&& Mouse::isButtonPressed(Mouse::Left))
+			{
+				guided = true;
+			}
+		
+		else
 		{
-			guided = true;
-		}
 		guided = false;
-}
-
-void Furniture::moveAround(Vector2i mousePos, Plane& playground)
-{
-	FloatRect ourBounds = playground.myplane().getLocalBounds();
-	FloatRect imageBnd = ourImage.getLocalBounds();
-	Vector2f travPos = Vector2f(mousePos);
-
-	float width = ourImage.getLocalBounds().width;
-	float height = ourImage.getLocalBounds().height;
-	playground.traveler = this;
-	playground.manageMouseInput(mousePos);
-	if ((guided) && (playground.isActivated()))
-	{
-		//	if	(ourBounds.contains(travPos) && ourBounds.contains(travPos + Vector2f(width, 0)))
-				//&& ourBounds.contains(travPos + Vector2f(0, height))&& ourBounds.contains(travPos + Vector2f(width, height)))
-		{
-
-			ourImage.setPosition(travPos);
-			/*
-			Vector2f toMove = travPos - ourImage.getPosition();
-			ourImage.move(toMove);
-			*/
 		}
 	}
-}
-
-void Furniture::stopGuide()
-{
-	guided = false;
-}
-
-void Furniture::handleKey(Keyboard::Key inputBut)
-{
-	if (inputBut == Keyboard::Right)
+	else
 	{
-		angle += 4.0f;
-		ourImage.setRotation(angle);
-	}
-	else if (inputBut == Keyboard::Left)
-	{
-		angle -= 4.0f;
-		ourImage.setRotation(angle);
-	}
+		if (pressed == Keyboard::Right)
+		{
+			angle += 4.0f;
+			ourImage.setRotation(angle);
+		}
+		else if (pressed == Keyboard::Left)
+		{
+			angle -= 4.0f;
+			ourImage.setRotation(angle);
+		}
 
-		if (previous != inputBut)
+		if (previous != pressed)
 		{
 			w_scale = 1;
 			h_scale = 1;
 		}
-		if (inputBut == Keyboard::P)
+		if (pressed == Keyboard::P)
 		{
 			w_scale *= 1.001f;
 			h_scale *= 1.001f;
 			ourImage.scale(w_scale, h_scale);
 		}
-		else if (inputBut == Keyboard::O)
+		else if (pressed == Keyboard::O)
 		{
 			w_scale *= 0.999f;
 			h_scale *= 0.999f;
 			ourImage.scale(w_scale, h_scale);
 		}
-		previous = inputBut;
+		previous = pressed;
+	}
+}
 
-}
-void Furniture::saySpawn(bool spawn)
+void Furniture::manageScreenBehaviour(Element * toManage, change mode)
 {
-	if (spawn == true)
+	if (mode == set)
 	{
-		spawned = true;
+		*toManage = *this;
 	}
-	else if(spawn == false)
+	else if (mode == unset)
 	{
-		spawned = false;
+		this->guided = false;
 	}
 }
+
+void Furniture::setPosition(Vector2i position)
+{
+	Vector2f temp{ static_cast<float>(position.x),static_cast<float>(position.y) };
+	ourImage.setPosition(temp);
+	//this->travPos = temp;
+}
+
 void Furniture::setSize(float width, float height)
 {
 	this->ourImage.setScale(width, height);

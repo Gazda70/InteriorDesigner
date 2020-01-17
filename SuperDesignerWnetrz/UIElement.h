@@ -17,7 +17,9 @@ public:
 	UIElement() = default;
 	UIElement(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,
 		unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline, int ouThick, Color ouColor, string message);
-	void manageMouseInput(Vector2i mousePos0);
+	void manageInput(Vector2i mousePos, Keyboard::Key pressed);
+	void manageScreenBehaviour(Element* toManage, change mode);
+	void setPosition(Vector2i position);
 	void drawMe(RenderWindow& window, RenderStates state);
 	bool isActivated();
 	RectangleShape getInteractionWindow();

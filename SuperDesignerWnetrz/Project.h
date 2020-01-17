@@ -10,13 +10,13 @@ public:
 	void addFurniture(string textureFile);
 	void runProject(RenderWindow& window);
 	void drawOnScene(RenderWindow& window);
-	void removeFromScene(Furniture* toRemove);
+	void removeFromScene(Element* toRemove);
 private:
 	vector<Element*> zbiorMebli;
 	vector<Element*> naScenie;
 	UI* projectInterface;
 	Plane* projectPlane;
-	UIPart mySwitch;
+	change mySwitch;
 	RenderWindow* window;
 	unsigned int screen_res_width;
 	unsigned int screen_res_height;

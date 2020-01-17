@@ -25,7 +25,7 @@ void UI::createMainMenu()
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 1.85),
 		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wyjdz"));// wyjdz
 }
-void UI::displayCurrent(UIPart current, RenderWindow& window, Plane &myCanvas, bool showList)
+void UI::displayCurrent(change current, RenderWindow& window, Plane &myCanvas, bool showList)
 {
 	switch (current)
 	{
@@ -46,7 +46,7 @@ void UI::displayCurrent(UIPart current, RenderWindow& window, Plane &myCanvas, b
 		break;
 	}
 }
-int UI::indexList(UIPart current, RenderWindow& window, Vector2i mousePos)
+int UI::indexList(change current, RenderWindow& window, Vector2i mousePos)
 {
 	vector<Element*>* temp = nullptr;
 	int size = 0;
@@ -66,7 +66,7 @@ int UI::indexList(UIPart current, RenderWindow& window, Vector2i mousePos)
 	{
 		while (count < size)
 		{
-			(*temp)[count]->manageMouseInput(mousePos);
+			(*temp)[count]->manageInput(mousePos, Keyboard::Key::Unknown);
 			if ((*temp)[count]->isActivated())
 			{
 				return count;
@@ -91,7 +91,7 @@ void UI::displayUI(vector<Element*>& myList, RenderWindow& window)
 	}
 }
 
-vector<Element*>& UI::getList(UIPart current)
+vector<Element*>& UI::getList(change current)
 {
 	switch (current)
 	{

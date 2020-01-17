@@ -48,7 +48,7 @@ Plane::Plane(unsigned int width, unsigned int height, unsigned int x_axis, unsig
 	setOutline(oColor, oThick);
 }
 
-void Plane::manageMouseInput(Vector2i mousePos)
+void Plane::manageInput(Vector2i mousePos, Keyboard::Key pressed)
 {
 
 	FloatRect ourBounds = this->myPlane.getGlobalBounds();
@@ -60,6 +60,16 @@ void Plane::manageMouseInput(Vector2i mousePos)
 	{
 		isInside = false;
 	}
+}
+
+void Plane::manageScreenBehaviour(Element * toManage, change mode)
+{
+	//implement
+}
+
+void Plane::setPosition(Vector2i position)
+{
+	//implement
 }
 
 bool Plane::isActivated()
