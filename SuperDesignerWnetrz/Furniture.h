@@ -14,13 +14,14 @@ class Furniture : public Element
 		Furniture(float width, float height,
 			unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor, string textureFile);
 		Furniture(const Furniture &toCopy);
-		bool shallGuide(Vector2i mousePos, bool& isGuide);
+		void drawMe(RenderWindow& window, RenderStates state);
+		void manageMouseInput(Vector2i mousePos);
+		bool isActivated();
 		void moveAround(Vector2i mousePos,Plane& playground);
 		void stopGuide();
 		void handleKey(Keyboard::Key inputBut);
 		void saySpawn(bool spawn);
 		void setColor(Color myColor);
-		virtual void draw(RenderTarget& target, RenderStates state) const;
 	private:
 		void setSize(float width, float height);
 		void setSize(unsigned int width, unsigned int height);

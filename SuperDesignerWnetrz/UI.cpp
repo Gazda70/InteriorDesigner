@@ -34,21 +34,21 @@ void UI::displayCurrent(UIPart current, RenderWindow& window, Plane &myCanvas, b
 		break;
 	case WorkPlace:
 		displayUI(this->workPlace, window);
-		myCanvas.draw(window, RenderStates::Default);
+		myCanvas.drawMe(window, RenderStates::Default);
 		if (showFurnitureList)
 		{
-			this->furnitureList->drawList(this->furnitureList->ourlist, window);
+			this->furnitureList->drawMe(window, RenderStates::Default);
 		}
 		if (showColorList)
 		{
-			this->colorList->drawList(this->colorList->ourlist, window);
+			this->colorList->drawMe(window, RenderStates::Default);
 		}
 		break;
 	}
 }
 int UI::indexList(UIPart current, RenderWindow& window, Vector2i mousePos)
 {
-	vector<UIElement*>* temp = nullptr;
+	vector<Element*>* temp = nullptr;
 	int size = 0;
 	int count = 0;
 	switch (current)
@@ -66,8 +66,8 @@ int UI::indexList(UIPart current, RenderWindow& window, Vector2i mousePos)
 	{
 		while (count < size)
 		{
-			if ((*temp)[count]->getInteractionWindow().getGlobalBounds()
-				.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+			(*temp)[count]->manageMouseInput(mousePos);
+			if ((*temp)[count]->isActivated())
 			{
 				return count;
 			}
@@ -83,39 +83,15 @@ int UI::indexList(UIPart current, RenderWindow& window, Vector2i mousePos)
 	}
 	return count;
 }
-
-bool UI::isMouseOverHim(UIPart current, RenderWindow & window, Vector2i mousePos)
-{
-	int count = 0;
-	int size = 0;
-	vector<UIElement*>* temp = nullptr;
-	temp = &workPlace;
-	size = temp->size();
-
-	if (temp)
-	{
-		while (count < size)
-		{
-			if ((*temp)[count]->getInteractionWindow().getGlobalBounds()
-				.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
-			{
-				if ((*temp)[count]->whenMouseOverMe())
-					return true;
-				count++;
-			}
-		}
-	}
-	return false;
-}
-void UI::displayUI(vector<UIElement*>& myList, RenderWindow& window)
+void UI::displayUI(vector<Element*>& myList, RenderWindow& window)
 {
 	for (int i = 0; i < myList.size(); i++)
 	{
-		window.draw(*myList[i]);
+		(*myList[i]).drawMe(window, RenderStates::Default);
 	}
 }
 
-vector<UIElement*>& UI::getList(UIPart current)
+vector<Element*>& UI::getList(UIPart current)
 {
 	switch (current)
 	{

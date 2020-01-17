@@ -2,7 +2,7 @@
 #include "DropDowList.h"
 #include "Furniture.h"
 #include "Plane.h"
-#include "UIPart.h"
+#include "Enums.h"
 
 class UI
 {
@@ -15,14 +15,14 @@ public:
 	int indexList(UIPart current, RenderWindow& window, Vector2i mousePos);
 	bool showFurnitureList;
 	bool showColorList;
-	bool isMouseOverHim(UIPart current, RenderWindow& window, Vector2i mousePos);
-	vector<UIElement*>& getList(UIPart current);
+	//bool isMouseOverHim(UIPart current, RenderWindow& window, Vector2i mousePos);
+	vector<Element*>& getList(UIPart current);
 	DropDownList* furnitureList;
 	DropDownList* colorList;
 private:
-	vector<UIElement*> mainMenu;
-	vector<UIElement*> workPlace;
+	vector<Element*> mainMenu;
+	vector<Element*> workPlace;
 	unsigned int res_x;
 	unsigned int res_y;
-	void displayUI(vector<UIElement*>& myList, RenderWindow& window);
+	void displayUI(vector<Element*>& myList, RenderWindow& window);
 };

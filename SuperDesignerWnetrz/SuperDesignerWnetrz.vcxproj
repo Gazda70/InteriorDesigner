@@ -134,7 +134,7 @@
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Project.h" />
-    <ClInclude Include="UIPart.h" />
+    <ClInclude Include="Enums.h" />
     <ClInclude Include="DropDowList.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="Furniture.h" />

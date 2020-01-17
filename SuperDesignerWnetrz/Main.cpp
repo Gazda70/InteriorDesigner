@@ -1,5 +1,5 @@
 #include "Project.h"
-#include "UIPart.h"
+#include "Enums.h"
 #include "Element.h"
 #include "Furniture.h"
 #include "Plane.h"

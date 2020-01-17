@@ -30,22 +30,11 @@ void Plane::setOutline(Color oColor, int oThick)
 	myPlane.setOutlineThickness(oThick);
 	myPlane.setOutlineColor(oColor);
 }
-void Plane::draw(RenderTarget & target, RenderStates state) const
+void Plane::drawMe(RenderWindow& window, RenderStates state)
 {
-	target.draw(this->myPlane);
+	window.draw(this->myPlane);
 }
-bool Plane::isInside(Furniture* traveler, Vector2i mousePos)
-{
-	FloatRect ourBounds = this->myPlane.getGlobalBounds();
-	if (ourBounds.contains(Vector2f(mousePos)))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
+
 RectangleShape Plane::myplane()
 {
 	return this->myPlane;
@@ -53,9 +42,27 @@ RectangleShape Plane::myplane()
 Plane::Plane(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int  y_axis,
 	Color myColor, Color oColor, int oThick)
 {
-	//	projectNumber++;
 	setSize(width, height);
 	setColor(myColor);
 	setOffset(x_axis, y_axis);
 	setOutline(oColor, oThick);
+}
+
+void Plane::manageMouseInput(Vector2i mousePos)
+{
+
+	FloatRect ourBounds = this->myPlane.getGlobalBounds();
+	if (ourBounds.contains(Vector2f(mousePos)))
+	{
+		isInside =  true;
+	}
+	else
+	{
+		isInside = false;
+	}
+}
+
+bool Plane::isActivated()
+{
+	return isInside;
 }

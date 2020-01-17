@@ -9,6 +9,10 @@ Button::Button(unsigned int width, unsigned int height, unsigned int x_axis, uns
 	this->toActivate = toactivate;
 }
 
+void Button::manageMouseInput(Vector2i mousePos)
+{
+}
+
 Furniture * Button::getAct()
 {
 	return this->toActivate;
@@ -22,4 +26,9 @@ void Button::setAct(Furniture * toFollow)
 Color Button::getMyColor()
 {
 	return this->myColor;
+}
+
+void Button::drawMe(RenderWindow & window, RenderStates state)
+{
+	window.draw(this->interactionWindow, state);
 }

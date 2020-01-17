@@ -8,10 +8,12 @@ class Button :
 public:
 	Button(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,
 		unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline, int ouThick, Color ouColor, string message, Furniture* toactivate);
+	void manageMouseInput(Vector2i mousePos);
 	Furniture* getAct();
-	void setAct(Furniture* toFollow);
 	Color getMyColor();
+	void drawMe(RenderWindow& window, RenderStates state);
 private:
+	void setAct(Furniture* toFollow);
 	Furniture* toActivate;
 };
 

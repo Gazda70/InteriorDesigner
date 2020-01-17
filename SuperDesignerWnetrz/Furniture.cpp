@@ -49,19 +49,19 @@ Furniture::Furniture(const Furniture & toCopy)
 
 }
 
-bool Furniture::shallGuide(Vector2i mousePos, bool& isGuide)
+bool Furniture::isActivated()
 {
-	if (!isGuide)
-	{
+	return guided;
+}
+
+void Furniture:: manageMouseInput(Vector2i mousePos)
+{
 		if (ourImage.getGlobalBounds().contains(Vector2f(mousePos)))
 		//	&& Mouse::isButtonPressed(Mouse::Left))
 		{
-			isGuide = true;
 			guided = true;
-			return true;
 		}
-	}
-	return false;
+		guided = false;
 }
 
 void Furniture::moveAround(Vector2i mousePos, Plane& playground)
@@ -72,7 +72,9 @@ void Furniture::moveAround(Vector2i mousePos, Plane& playground)
 
 	float width = ourImage.getLocalBounds().width;
 	float height = ourImage.getLocalBounds().height;
-	if ((guided) && (playground.isInside(this, mousePos)))
+	playground.traveler = this;
+	playground.manageMouseInput(mousePos);
+	if ((guided) && (playground.isActivated()))
 	{
 		//	if	(ourBounds.contains(travPos) && ourBounds.contains(travPos + Vector2f(width, 0)))
 				//&& ourBounds.contains(travPos + Vector2f(0, height))&& ourBounds.contains(travPos + Vector2f(width, height)))
@@ -159,7 +161,7 @@ void Furniture::setColor(Color myColor)
 }
 
 
-void Furniture::draw(RenderTarget & target, RenderStates state) const
+void Furniture:: drawMe(RenderWindow& window, RenderStates state)
 {
-	target.draw(this->ourImage, state);
+	window.draw(this->ourImage, state);
 }

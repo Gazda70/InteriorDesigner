@@ -9,12 +9,12 @@ void DropDownList::addPart(string another, Color myColor, Furniture* toFollow)
 		textSize,tColor, tBold, tUnderline, ouThick, ouColor, another, toFollow);
 	ourlist.push_back(nextone);
 }
-void DropDownList::drawList(vector<Button*>& myList, RenderWindow & window)
+void DropDownList::drawMe( RenderWindow & window, RenderStates state)
 {
 
-	for (int c = 0; c < myList.size(); c++)
+	for (int c = 0; c < ourlist.size(); c++)
 	{
-		(*myList[c]).draw(window, RenderStates::Default);
+		(*ourlist[c]).drawMe(window,state);
 	}
 	return;
 }
@@ -27,28 +27,10 @@ void DropDownList::setGlobalTarget(Furniture * toFollow)
 	}
 
 }
-
-Furniture* DropDownList::goThrough(Vector2i mouse, listType change)
+listType DropDownList::getType()
 {
-	for (int i = 0; i < ourlist.size(); i++)
-	{
-		if (ourlist[i]->getInteractionWindow().getGlobalBounds()
-			.contains(static_cast<float>(mouse.x), static_cast<float>(mouse.y)))
-		{
-			if (change == furnitureT)
-			{
-				return ourlist[i]->getAct();
-			}
-			else if (change == colorT)
-			{
-				ourlist[i]->getAct()->setColor(ourlist[i]->getMyColor());
-				return nullptr;
-			}
-		}
-	}
-	return nullptr;
+	return this->ourType;
 }
-
 DropDownList::DropDownList(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,
 	unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline, int ouThick, Color ouColor)
 	:UIElement(width, height, x_axis, y_axis, myColor, textSize, tColor, tBold, tUnderline, ouThick, ouColor, "")
@@ -64,6 +46,33 @@ DropDownList::DropDownList(unsigned int width, unsigned int height, unsigned int
 	this->ouColor = ouColor;
 	helpy = y_axis;
 	helpx = x_axis;
+}
+
+void DropDownList::manageMouseInput(Vector2i mousePos)
+{
+	for (int i = 0; i < ourlist.size(); i++)
+	{
+		ourlist[i]->manageMouseInput(mousePos);
+		if (ourlist[i]->isActivated())
+		{
+			if (ourType == furnitureT)
+			{
+				this->chosen = ourlist[i]->getAct();
+			}
+			else if (ourType == colorT)
+			{
+				ourlist[i]->getAct()->setColor(ourlist[i]->getMyColor());
+				this->chosen =  nullptr;
+			}
+		}
+	}
+	this->chosen = nullptr;
+
+}
+
+bool DropDownList::isActivated()
+{
+	return activated;
 }
 
 

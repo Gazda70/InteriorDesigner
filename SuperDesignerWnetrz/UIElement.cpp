@@ -76,10 +76,15 @@ bool UIElement::whenMouseOverMe()
 	}
 }
 
-void UIElement::draw(RenderTarget & target, RenderStates state) const
+bool UIElement::isActivated()
 {
-	target.draw(this->interactionWindow, state);
-	target.draw(this->myText, state);
+	return activate;
+}
+
+void UIElement::drawMe(RenderWindow& window, RenderStates state)
+{
+	window.draw(this->interactionWindow, state);
+	window.draw(this->myText, state);
 }
 UIElement::UIElement(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,
 	unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline, int ouThick, Color ouColor, string message)
@@ -91,4 +96,17 @@ UIElement::UIElement(unsigned int width, unsigned int height, unsigned int x_axi
 	setShape(width, height, x_axis, y_axis, degrees, myColor);
 	setText(message, textSize, tColor, tBold, tUnderline);
 	this->myColor = myColor;
+}
+
+void UIElement::manageMouseInput(Vector2i mousePos)
+{
+	if (this->getInteractionWindow().getGlobalBounds()
+		.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+	activate = 1;
+	}
+	else
+	{
+	activate = 0;
+	}
 }

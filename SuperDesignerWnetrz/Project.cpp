@@ -27,16 +27,14 @@ void Project::addFurniture(string textureFile)
 
 void Project::runProject(RenderWindow& window)
 {
-	Furniture* toSpawn;
-	Furniture* toGuide = nullptr;
+	Element* toSpawn;
+	Element* toGuide = nullptr;
 	window.setVerticalSyncEnabled(true);
 	while (window.isOpen())
 	{
-		// check all the window's events that were triggered since the last iteration of the loop
 		Event event;
 		while (window.pollEvent(event))
 		{
-			// "close requested" event: we close the window
 			if (event.type == Event::Closed)
 			{
 				window.close();
@@ -81,7 +79,8 @@ void Project::runProject(RenderWindow& window)
 						}
 						if (projectInterface->showFurnitureList)
 						{
-						toSpawn = projectInterface->furnitureList->goThrough(mPosition, DropDownList::listType::furnitureT);
+						 projectInterface->furnitureList->manageMouseInput(mPosition);
+						 toSpawn = projectInterface->furnitureList->chosen;
 						if (toSpawn)
 						{
 							Furniture* help = new Furniture(*toSpawn);
@@ -93,7 +92,8 @@ void Project::runProject(RenderWindow& window)
 							int i = 0;
 							while (i < naScenie.size() && !mouseGuide)
 							{
-								if (naScenie[i]->shallGuide(mPosition, mouseGuide))
+								naScenie[i]->manageMouseInput(mPosition);
+								if (naScenie[i]->isActivated())
 								{
 									toGuide = naScenie[i];
 									projectInterface->colorList->setGlobalTarget(toGuide);
@@ -103,7 +103,7 @@ void Project::runProject(RenderWindow& window)
 						}
 						if (projectInterface->showColorList)
 						{
-							projectInterface->colorList->goThrough( mPosition, DropDownList::listType:: colorT);
+							projectInterface->furnitureList->manageMouseInput(mPosition);
 						}
 					}
 				}
@@ -154,7 +154,7 @@ void Project::drawOnScene(RenderWindow & window)
 	if (!naScenie.empty())
 	{
 		for (int k = 0; k < naScenie.size(); k++)
-			naScenie[k]->draw(window, RenderStates::Default);
+			naScenie[k]->drawMe(window, RenderStates::Default);
 	}
 }
 

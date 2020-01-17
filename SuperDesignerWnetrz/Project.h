@@ -12,8 +12,8 @@ public:
 	void drawOnScene(RenderWindow& window);
 	void removeFromScene(Furniture* toRemove);
 private:
-	vector<Furniture*> zbiorMebli;
-	vector<Furniture*> naScenie;
+	vector<Element*> zbiorMebli;
+	vector<Element*> naScenie;
 	UI* projectInterface;
 	Plane* projectPlane;
 	UIPart mySwitch;
