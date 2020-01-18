@@ -16,11 +16,6 @@ void Plane::setOffset(unsigned int x_axis, unsigned int  y_axis)
 	temp.y = y_axis;
 	this->myPlane.setPosition(temp);
 }
-void Plane::setRotation(float degrees)
-{
-	this->myPlane.setRotation(degrees);
-}
-
 void Plane::setColor(Color& myColor, change mode)
 {
 	this->myPlane.setFillColor(myColor);

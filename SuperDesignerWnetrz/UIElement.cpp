@@ -1,10 +1,5 @@
 #include "UIElement.h"
 
-void UIElement::setOffset(unsigned int x_axis, unsigned int  y_axis)
-{
-	interactionWindow.setPosition(x_axis, y_axis);
-}
-
 void UIElement::setColor(Color& myColor, change mode)
 {
 	interactionWindow.setFillColor(myColor);
@@ -19,17 +14,6 @@ Text UIElement::getText()
 {
 	Text text = this->myText;
 	return text;
-}
-void UIElement::setSize(unsigned int width, unsigned int height)
-{
-	Vector2f create;
-	create.x = width;
-	create.y = height;
-	interactionWindow.setSize(create);
-}
-void UIElement::setRotation(float degrees)
-{
-	interactionWindow.setRotation({ degrees });
 }
 void UIElement::setText(const string myMes, unsigned int mySize, Color color, Text::Style ifBold, Text::Style ifUnderlined)
 {

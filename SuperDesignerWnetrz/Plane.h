@@ -20,9 +20,8 @@ class Plane : public Element
 	private:
 		RectangleShape myPlane;
 		bool isInside;
-		void setSize(unsigned int width, unsigned int height);
-		void setOffset(unsigned int x_axis, unsigned int  y_axis);
-		void setRotation(float degrees);
 		void setColor(Color& myColor, change mode);
-		void setOutline(Color oColor, int oThick);
+		void setSize(unsigned int width, unsigned int height);
+		 void setOffset(unsigned int x_axis, unsigned int y_axis);
+		 void setOutline(Color oColor,int oThick);
 	};

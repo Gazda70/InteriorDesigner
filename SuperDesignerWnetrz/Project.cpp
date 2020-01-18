@@ -19,11 +19,11 @@ void Project::addFurniture(string textureFile, change mode)
 {
 	Furniture* temp = new Furniture(0.2f, 0.2f, projectPlane->myplane().getSize().x / 2,
 		projectPlane->myplane().getSize().y / 1.5f, 0, Color::Red, textureFile);
-	int help = textureFile.size();
-	string name = textureFile.erase(help-4);
-	this->projectInterface->furnitureList->addPart(name,Color::Green, temp);
 	if (mode == dflt)
 	{
+		int help = textureFile.size();
+		string name = textureFile.erase(help - 4);
+		this->projectInterface->furnitureList->addPart(name, Color::Green, temp);
 		zbiorMebli.push_back(temp);
 	}
 	else if(mode == set)
@@ -88,11 +88,16 @@ void Project::runProject(RenderWindow& window)
 						{
 						 projectInterface->furnitureList->manageInput(mPosition,Keyboard::Key::Unknown,set);
 						 toSpawn = projectInterface->furnitureList->chosen;
-						if (toSpawn)
-						{
-							Element* help = toSpawn;
-							naScenie.push_back(help);
+						 projectInterface->furnitureList->chosen = nullptr;
+							if (toSpawn)
+							{
+								addFurniture(toSpawn->name, set);
+								toSpawn = nullptr;
+							}
 						}
+						if (projectInterface->showColorList)
+						{
+							projectInterface->colorList->manageInput(mPosition, Keyboard::Key::Unknown, color);
 						}
 						if (!naScenie.empty())
 						{
@@ -108,10 +113,6 @@ void Project::runProject(RenderWindow& window)
 								}
 								i++;
 							}
-						}
-						if (projectInterface->showColorList)
-						{
-							projectInterface->colorList->manageInput(mPosition, Keyboard::Key::Unknown,color);
 						}
 					}
 				}

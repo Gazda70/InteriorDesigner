@@ -29,6 +29,7 @@ Furniture::Furniture(float width, float height,
 	setOffset(x_axis, y_axis);
 	setRotation(degrees);
 	setColor(myColor,dflt);
+	name = textureFile;
 }
 
 Furniture::Furniture(const Furniture & toCopy)
@@ -58,7 +59,6 @@ void Furniture::manageInput(Vector2i mousePos, Keyboard::Key pressed, change mod
 	if (pressed == Keyboard::Key::Unknown)
 	{
 			if (ourImage.getGlobalBounds().contains(Vector2f(mousePos)))
-				//	&& Mouse::isButtonPressed(Mouse::Left))
 			{
 				guided = true;
 			}
@@ -142,8 +142,6 @@ void Furniture::setColor(Color& myColor, change mode)
 {
 	ourImage.setColor(myColor);
 }
-
-
 void Furniture:: drawMe(RenderWindow& window, RenderStates state)
 {
 	window.draw(this->ourImage, state);

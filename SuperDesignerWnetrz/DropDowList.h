@@ -21,9 +21,9 @@ public:
 private:
 	bool activated;
 	change ourType;
+	unsigned int	helpy;
+	unsigned int   helpx;
 	unsigned int textSize;
-	unsigned int helpy;
-	unsigned int helpx;
 	Color tColor;
 	Text::Style tBold;
 	Text::Style tUnderline;
