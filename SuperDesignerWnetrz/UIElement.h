@@ -17,8 +17,8 @@ public:
 	UIElement() = default;
 	UIElement(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, Color myColor,
 		unsigned int textSize, Color tColor, Text::Style tBold, Text::Style tUnderline, int ouThick, Color ouColor, string message);
-	void manageInput(Vector2i mousePos, Keyboard::Key pressed);
-	void manageScreenBehaviour(Element* toManage, change mode);
+	void manageInput(Vector2i mousePos, Keyboard::Key pressed, change mode);
+	Element* manageScreenBehaviour(change mode);
 	void setPosition(Vector2i position);
 	void drawMe(RenderWindow& window, RenderStates state);
 	bool isActivated();
@@ -32,10 +32,9 @@ protected:
 	void setSize(unsigned int width, unsigned int height);
 	void setOffset(unsigned int x_axis, unsigned int  y_axis);
 	void setRotation(float degrees);
-	void setColor(Color myColor);
+	void setColor(Color& myColor, change mode);
 	Text myText;
 	Vector2f size;
 	Font myFont;
-private:
 	bool activate;
 };

@@ -15,19 +15,26 @@ Project::Project(unsigned int screen_res_width, unsigned int screen_res_height)
 	 change mySwitch = change::MainMenu;
 }
 
-void Project::addFurniture(string textureFile)
+void Project::addFurniture(string textureFile, change mode)
 {
 	Furniture* temp = new Furniture(0.2f, 0.2f, projectPlane->myplane().getSize().x / 2,
 		projectPlane->myplane().getSize().y / 1.5f, 0, Color::Red, textureFile);
 	int help = textureFile.size();
 	string name = textureFile.erase(help-4);
 	this->projectInterface->furnitureList->addPart(name,Color::Green, temp);
-	zbiorMebli.push_back(temp);
+	if (mode == dflt)
+	{
+		zbiorMebli.push_back(temp);
+	}
+	else if(mode == set)
+	{
+		naScenie.push_back(temp);
+	}
 }
 
 void Project::runProject(RenderWindow& window)
 {
-	Element* toSpawn;
+	Element* toSpawn = nullptr;
 	Element* toGuide = nullptr;
 	window.setVerticalSyncEnabled(true);
 	while (window.isOpen())
@@ -79,7 +86,7 @@ void Project::runProject(RenderWindow& window)
 						}
 						if (projectInterface->showFurnitureList)
 						{
-						 projectInterface->furnitureList->manageInput(mPosition,Keyboard::Key::Unknown);
+						 projectInterface->furnitureList->manageInput(mPosition,Keyboard::Key::Unknown,set);
 						 toSpawn = projectInterface->furnitureList->chosen;
 						if (toSpawn)
 						{
@@ -92,26 +99,30 @@ void Project::runProject(RenderWindow& window)
 							int i = 0;
 							while (i < naScenie.size() && !mouseGuide)
 							{
-								naScenie[i]->manageInput(mPosition,Keyboard::Key::Unknown);
+								naScenie[i]->manageInput(mPosition,Keyboard::Key::Unknown,set);
 								if (naScenie[i]->isActivated())
 								{
 									toGuide = naScenie[i];
-									projectInterface->colorList->manageScreenBehaviour(toGuide,set);
+									 projectInterface->colorList->chosen = toGuide;
+									mouseGuide = true;
 								}
 								i++;
 							}
 						}
 						if (projectInterface->showColorList)
 						{
-							projectInterface->furnitureList->manageInput(mPosition, Keyboard::Key::Unknown);
+							projectInterface->colorList->manageInput(mPosition, Keyboard::Key::Unknown,color);
 						}
 					}
 				}
 			}
 			else if (event.type == Event::MouseButtonReleased)
 			{
-				toGuide->manageScreenBehaviour(nullptr, unset);
-				mouseGuide = false;
+				if (toGuide)
+				{
+					toGuide->manageScreenBehaviour(unset);
+					mouseGuide = false;
+				}
 			}
 			else if (event.type ==Event::KeyPressed)
 			{
@@ -121,10 +132,11 @@ void Project::runProject(RenderWindow& window)
 					{
 						removeFromScene(toGuide);
 						mouseGuide = false;
+						projectInterface->furnitureList->chosen = nullptr;
 					}
 					else
 					{
-						toGuide->manageInput({ 0,0 },event.key.code);
+						toGuide->manageInput({ 0,0 },event.key.code,set);
 					}
 				}
 			}
@@ -134,8 +146,8 @@ void Project::runProject(RenderWindow& window)
 				{
 					if (toGuide)
 					{
-						toGuide->manageScreenBehaviour(projectPlane->traveler, set);
-						projectPlane->manageInput(Mouse::getPosition(window), Keyboard::Key::Unknown);
+						projectPlane->traveler = toGuide->manageScreenBehaviour(set);
+						projectPlane->manageInput(Mouse::getPosition(window), Keyboard::Key::Unknown, dflt);
 						if (projectPlane->isActivated())
 						{
 							toGuide->setPosition(Mouse::getPosition(window));
@@ -145,7 +157,7 @@ void Project::runProject(RenderWindow& window)
 				}
 				else if ((event.type == Event::MouseButtonReleased))
 				{
-					toGuide->manageScreenBehaviour(nullptr,unset);
+					toGuide->manageScreenBehaviour(unset);
 					mouseGuide = false;
 				}
 			}

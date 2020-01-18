@@ -10,12 +10,12 @@ class Plane : public Element
 		Plane(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int  y_axis,
 			Color myColor, Color oColor, int oThick);
 		 void drawMe(RenderWindow& window, RenderStates state);
-		 void manageInput(Vector2i mousePos, Keyboard::Key pressed);
-		 void manageScreenBehaviour(Element* toManage, change mode);
+		 void manageInput(Vector2i mousePos, Keyboard::Key pressed, change mode);
+		 Element* manageScreenBehaviour(change mode);
 		 void setPosition(Vector2i position);
 		bool isActivated();
 		RectangleShape myplane();
-		Furniture* traveler;
+		Element* traveler;
 		//	static int projectNumber;
 	private:
 		RectangleShape myPlane;
@@ -23,6 +23,6 @@ class Plane : public Element
 		void setSize(unsigned int width, unsigned int height);
 		void setOffset(unsigned int x_axis, unsigned int  y_axis);
 		void setRotation(float degrees);
-		void setColor(Color myColor);
+		void setColor(Color& myColor, change mode);
 		void setOutline(Color oColor, int oThick);
 	};

@@ -21,7 +21,7 @@ void Plane::setRotation(float degrees)
 	this->myPlane.setRotation(degrees);
 }
 
-void Plane::setColor(Color myColor)
+void Plane::setColor(Color& myColor, change mode)
 {
 	this->myPlane.setFillColor(myColor);
 }
@@ -43,12 +43,12 @@ Plane::Plane(unsigned int width, unsigned int height, unsigned int x_axis, unsig
 	Color myColor, Color oColor, int oThick)
 {
 	setSize(width, height);
-	setColor(myColor);
+	setColor(myColor,dflt);
 	setOffset(x_axis, y_axis);
 	setOutline(oColor, oThick);
 }
 
-void Plane::manageInput(Vector2i mousePos, Keyboard::Key pressed)
+void Plane::manageInput(Vector2i mousePos, Keyboard::Key pressed, change mode)
 {
 
 	FloatRect ourBounds = this->myPlane.getGlobalBounds();
@@ -62,9 +62,10 @@ void Plane::manageInput(Vector2i mousePos, Keyboard::Key pressed)
 	}
 }
 
-void Plane::manageScreenBehaviour(Element * toManage, change mode)
+Element *Plane::manageScreenBehaviour(change mode)
 {
 	//implement
+	return nullptr;
 }
 
 void Plane::setPosition(Vector2i position)

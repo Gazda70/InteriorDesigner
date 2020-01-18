@@ -66,7 +66,7 @@ int UI::indexList(change current, RenderWindow& window, Vector2i mousePos)
 	{
 		while (count < size)
 		{
-			(*temp)[count]->manageInput(mousePos, Keyboard::Key::Unknown);
+			(*temp)[count]->manageInput(mousePos, Keyboard::Key::Unknown,dflt);
 			if ((*temp)[count]->isActivated())
 			{
 				return count;

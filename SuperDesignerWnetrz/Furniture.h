@@ -15,11 +15,11 @@ class Furniture : public Element
 			unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor, string textureFile);
 		Furniture(const Furniture &toCopy);
 		void drawMe(RenderWindow& window, RenderStates state);
-		void manageInput(Vector2i mousePos, Keyboard::Key pressed);
-		void manageScreenBehaviour(Element* toManage, change mode);
+		void manageInput(Vector2i mousePos, Keyboard::Key pressed, change mode);
+		Element* manageScreenBehaviour( change mode);
 		void setPosition(Vector2i position);
 		bool isActivated();
-		void setColor(Color myColor);
+		void setColor(Color& myColor, change mode);
 	private:
 		void setSize(float width, float height);
 		void setSize(unsigned int width, unsigned int height);

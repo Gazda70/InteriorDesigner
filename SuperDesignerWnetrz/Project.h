@@ -7,7 +7,7 @@ class Project
 {
 public:
 	Project(unsigned int screen_res_width, unsigned int screen_res_height);
-	void addFurniture(string textureFile);
+	void addFurniture(string textureFile, change mode);
 	void runProject(RenderWindow& window);
 	void drawOnScene(RenderWindow& window);
 	void removeFromScene(Element* toRemove);

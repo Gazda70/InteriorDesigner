@@ -28,7 +28,7 @@ Furniture::Furniture(float width, float height,
 	setSize(width, height);
 	setOffset(x_axis, y_axis);
 	setRotation(degrees);
-	setColor(myColor);
+	setColor(myColor,dflt);
 }
 
 Furniture::Furniture(const Furniture & toCopy)
@@ -45,8 +45,7 @@ Furniture::Furniture(const Furniture & toCopy)
 	setSize(w_scale/2, h_scale/2);
 	setOffset(toCopy.x_axis, toCopy.y_axis);
 	setRotation(toCopy.degrees);
-	setColor(toCopy.myColor);
-
+	this->myColor = toCopy.myColor;
 }
 
 bool Furniture::isActivated()
@@ -54,7 +53,7 @@ bool Furniture::isActivated()
 	return guided;
 }
 
-void Furniture::manageInput(Vector2i mousePos, Keyboard::Key pressed)
+void Furniture::manageInput(Vector2i mousePos, Keyboard::Key pressed, change mode)
 {
 	if (pressed == Keyboard::Key::Unknown)
 	{
@@ -103,11 +102,11 @@ void Furniture::manageInput(Vector2i mousePos, Keyboard::Key pressed)
 	}
 }
 
-void Furniture::manageScreenBehaviour(Element * toManage, change mode)
+Element* Furniture::manageScreenBehaviour(change mode)
 {
 	if (mode == set)
 	{
-		*toManage = *this;
+		return this;
 	}
 	else if (mode == unset)
 	{
@@ -139,7 +138,7 @@ void Furniture::setRotation(float degrees)
 {
 	ourImage.setRotation(degrees);
 }
-void Furniture::setColor(Color myColor)
+void Furniture::setColor(Color& myColor, change mode)
 {
 	ourImage.setColor(myColor);
 }

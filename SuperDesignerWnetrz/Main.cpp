@@ -16,10 +16,10 @@ int main(int argc, char * argv[])
 {
 	RenderWindow window { VideoMode(1600,900),"Project " };
 	Project* super = new Project(1600, 900);
-	super->addFurniture("DobreKrzeslo.png");
-	super->addFurniture("DobryFotel.png");
-	super->addFurniture("LepszyStol.png");
-	super->addFurniture("DobreLozko.png");
+	super->addFurniture("DobreKrzeslo.png",dflt);
+	super->addFurniture("DobryFotel.png", dflt);
+	super->addFurniture("LepszyStol.png", dflt);
+	super->addFurniture("DobreLozko.png", dflt);
 	super->runProject(window);
 		system("pause");
 		//cin.get();

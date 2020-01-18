@@ -5,7 +5,7 @@ void UIElement::setOffset(unsigned int x_axis, unsigned int  y_axis)
 	interactionWindow.setPosition(x_axis, y_axis);
 }
 
-void UIElement::setColor(Color myColor)
+void UIElement::setColor(Color& myColor, change mode)
 {
 	interactionWindow.setFillColor(myColor);
 }
@@ -105,7 +105,7 @@ UIElement::UIElement(unsigned int width, unsigned int height, unsigned int x_axi
 	this->myColor = myColor;
 }
 
-void UIElement::manageInput(Vector2i mousePos, Keyboard::Key pressed)
+void UIElement::manageInput(Vector2i mousePos, Keyboard::Key pressed, change mode)
 {
 	if (this->getInteractionWindow().getGlobalBounds()
 		.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
@@ -117,6 +117,7 @@ void UIElement::manageInput(Vector2i mousePos, Keyboard::Key pressed)
 	activate = 0;
 	}
 }
-void UIElement::manageScreenBehaviour(Element * toManage, change mode)
+Element* UIElement::manageScreenBehaviour(change mode)
 {
+	return nullptr;
 }

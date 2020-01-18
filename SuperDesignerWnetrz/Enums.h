@@ -11,6 +11,6 @@
 using namespace sf;
 using namespace std;
 
-enum change { MainMenu, WorkPlace, furnitureT, colorT, set, unset
+enum change { MainMenu, WorkPlace, furnitureT, colorT, set, unset, color,dflt
 };
 

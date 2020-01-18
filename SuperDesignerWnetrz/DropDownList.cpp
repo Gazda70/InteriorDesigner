@@ -19,18 +19,19 @@ void DropDownList::drawMe( RenderWindow & window, RenderStates state)
 	return;
 }
 
-void DropDownList::manageScreenBehaviour(Element * toManage, change mode)
+Element* DropDownList::manageScreenBehaviour(change mode)
 {
 	for (auto iter : ourlist)
 	{
-		iter->manageScreenBehaviour(toManage, mode);
+		iter->manageScreenBehaviour(mode);
 	}
+	return nullptr;
 }
 change DropDownList::getType()
 {
 	return this->ourType;
 }
-void DropDownList::setColor(Color myColor)
+void DropDownList::setColor(Color& myColor, change mode)
 {
 	this->myColor = myColor;
 }
@@ -51,18 +52,28 @@ DropDownList::DropDownList(unsigned int width, unsigned int height, unsigned int
 	helpx = x_axis;
 }
 
-void DropDownList::manageInput(Vector2i mousePos, Keyboard::Key pressed)
+void DropDownList::manageInput(Vector2i mousePos, Keyboard::Key pressed, change mode)
 {
 	for (int i = 0; i < ourlist.size(); i++)
 	{
-		ourlist[i]->manageInput(mousePos,pressed);
+		ourlist[i]->manageInput(mousePos,pressed,mode);
 		if (ourlist[i]->isActivated())
 		{
-			ourlist[i]->manageScreenBehaviour(this->chosen, ourType);
+			if (mode == set)
+			{
+				this->chosen = ourlist[i]->manageScreenBehaviour(set);
+			}
+			else if (mode == color)
+			{
+				Color hColor;
+				Color& tmpC = hColor;
+				ourlist[i]->setColor(tmpC,set);
+				if(chosen)
+				this->chosen->setColor(hColor,dflt);
+			}
+			return;
 		}
 	}
-	this->chosen = nullptr;
-
 }
 
 bool DropDownList::isActivated()

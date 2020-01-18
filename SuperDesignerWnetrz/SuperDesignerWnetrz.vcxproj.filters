@@ -50,9 +50,6 @@
     <ClCompile Include="UIElement.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="Element.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="Plane.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
@@ -69,7 +66,7 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

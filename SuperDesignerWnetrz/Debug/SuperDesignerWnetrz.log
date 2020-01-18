@@ -1,2 +1,4 @@
-﻿  Button.cpp
+﻿  DropDownList.cpp
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\dropdownlist.cpp(15): warning C4018: '<': signed/unsigned mismatch
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\dropdownlist.cpp(57): warning C4018: '<': signed/unsigned mismatch
   SuperDesignerWnetrz.vcxproj -> C:\Users\gazda\Desktop\Politechniczne studia\PK3\ProjektPK3\SuperDesignerWnetrz\Debug\SuperDesignerWnetrz.exe

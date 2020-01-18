@@ -7,32 +7,37 @@ Button::Button(unsigned int width, unsigned int height, unsigned int x_axis, uns
 		tUnderline,ouThick,ouColor,message)
 {
 	this->toActivate = toactivate;
-}
-
-void Button::manageInput(Vector2f mousePos, Keyboard pressed)
-{
-}
-
-void Button::manageScreenBehaviour(Element* toManage, change mode)
-{
-
-	if (mode == furnitureT)
-	{
-		toManage = toActivate;
-	}
-	else if (mode == colorT)
-	{
-		toManage->setColor(myColor);
-		toManage = nullptr;
-	}
-	else if (mode == set)
-	{
-		this->toActivate = toManage;
-	}
-}
-void Button::setColor(Color myColor)
-{
 	this->myColor = myColor;
+}
+
+void Button::manageInput(Vector2i mousePos, Keyboard pressed, change mode)
+{
+	if (this->getInteractionWindow().getGlobalBounds()
+		.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y)))
+	{
+		activate = 1;
+	}
+	else
+	{
+		activate = 0;
+	}
+}
+
+Element* Button::manageScreenBehaviour(change mode)
+{
+		return this->toActivate;
+}
+
+void Button::setColor(Color & myColor, change mode)
+{
+	if (mode == set)
+	{
+		myColor = this->myColor;
+	}
+	else if (mode == dflt)
+	{
+		this->myColor = myColor;
+	}
 }
 void Button::setAct(Furniture * toFollow)
 {
