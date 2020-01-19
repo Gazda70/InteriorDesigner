@@ -23,7 +23,6 @@ public:
 	virtual void setPosition(Vector2i position) = 0;
 	virtual	istream& operator>>(istream& is) = 0;
 	virtual	ostream& operator<<(ostream& os) = 0;
-	ofstream* name;
 	string file;
 protected:
 	Element() = default;

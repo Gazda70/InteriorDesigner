@@ -11,16 +11,16 @@ void UI::createMainMenu()
 	cout << res_x << endl;
 	cout << res_y << endl;
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 9) * 2, temp_x / 4, (temp_y / 18),
-		Color::Green, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Super Designer Wnetrz"));// glówny zielony prostokat
+		Color::Green, 60, Color::Black, Text::Regular, Text::Regular, -5, Color::Black, "Super Designer Wnetrz"));// glówny zielony prostokat
 
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (temp_y / 3),
-		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Nowy projekt"));// nowy projekt
+		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -5, Color::Black, "Nowy projekt"));// nowy projekt
 
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 2.5),
-		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Otworz poprzedni"));// otwórz istniejacy
+		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -5, Color::Black, "Otworz poprzedni"));// otwórz istniejacy
 
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 2.13),
-		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wyjdz"));// ustawienia
+		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -5, Color::Black, "Wyjdz"));// ustawienia
 }
 void UI::displayCurrent(change current, RenderWindow& window, Plane &myCanvas, bool showList)
 {
@@ -104,7 +104,7 @@ vector<Element*>& UI::getList(change current)
 void UI::createWorkplace()
 {
 	UIElement *ksztalt = new UIElement(((res_x / 16) * 3), (res_y / 9), (res_x / 32), (res_y / 18),
-		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Ksztalty");
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -5, Color::Black, "Ksztalty");
 
 	Vector2f startList = ksztalt->getInteractionWindow().getPosition();
 	FloatRect hookSize = ksztalt->getInteractionWindow().getLocalBounds();
@@ -116,11 +116,11 @@ void UI::createWorkplace()
 
 	workPlace.push_back(ksztalt);
 	ksztalt = new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 17), (res_y / 18),
-		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Kolor");
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -5, Color::Black, "Kolor");
 
 	workPlace.push_back(ksztalt);
 	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 9), (res_y / 18),
-		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Zapisz"));
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -5, Color::Black, "Zapisz"));
 
 	startList = ksztalt->getInteractionWindow().getPosition();
 	 hookSize = ksztalt->getInteractionWindow().getLocalBounds();
@@ -131,7 +131,7 @@ void UI::createWorkplace()
 		Color::Green, 15, Color::Black, Text::Style::Italic, Text::Style::Regular, -5, Color::Black);
 
 	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 25), (res_y / 18),
-		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wroc"));
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -5, Color::Black, "Wroc"));
 	colorList->addPart("Zielony",Color::Green, nullptr);
 	colorList->addPart("Czerwony", Color::Red, nullptr);
 	colorList->addPart("Niebieski", Color::Blue, nullptr);

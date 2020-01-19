@@ -1,14 +1,16 @@
-﻿  UIElement.cpp
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\uielement.cpp(22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\uielement.cpp(31): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+﻿  Project.cpp
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(22): warning C4244: 'argument': conversion from 'T' to 'unsigned int', possible loss of data
           with
           [
               T=float
           ]
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\uielement.cpp(32): warning C4244: '=': conversion from 'unsigned int' to 'T', possible loss of data
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(21): warning C4244: 'argument': conversion from 'T' to 'unsigned int', possible loss of data
           with
           [
               T=float
           ]
-c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\uielement.cpp(34): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(105): warning C4018: '<': signed/unsigned mismatch
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(135): warning C4018: '<': signed/unsigned mismatch
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(208): warning C4018: '<': signed/unsigned mismatch
+c:\users\gazda\desktop\politechniczne studia\pk3\projektpk3\superdesignerwnetrz\superdesignerwnetrz\project.cpp(216): warning C4018: '<': signed/unsigned mismatch
   SuperDesignerWnetrz.vcxproj -> C:\Users\gazda\Desktop\Politechniczne studia\PK3\ProjektPK3\SuperDesignerWnetrz\Debug\SuperDesignerWnetrz.exe

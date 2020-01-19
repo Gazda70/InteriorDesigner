@@ -8,6 +8,8 @@ Button::Button(unsigned int width, unsigned int height, unsigned int x_axis, uns
 {
 	this->toActivate = toactivate;
 	this->myColor = myColor;
+	this->interactionWindow.setOutlineThickness(ouThick);
+	this->interactionWindow.setOutlineColor(ouColor);
 }
 
 void Button::manageInput(Vector2i mousePos, Keyboard pressed, change mode)

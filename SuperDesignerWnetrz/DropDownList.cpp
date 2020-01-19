@@ -67,7 +67,7 @@ void DropDownList::manageInput(Vector2i mousePos, Keyboard::Key pressed, change 
 {
 	for (int i = 0; i < ourlist.size(); i++)
 	{
-		ourlist[i]->manageInput(mousePos,pressed,mode);
+		ourlist[i]->manageInput(mousePos,pressed,mode);//polimorfizm
 		if (ourlist[i]->isActivated())
 		{
 			if (mode == set)

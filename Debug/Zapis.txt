@@ -1,7 +1,14 @@
+DobryFotel.png
+226
+668
+0
+0
+0
+B
 DobreKrzeslo.png
-688
-548
+750
+433
 0
 0
 0
-R
+G

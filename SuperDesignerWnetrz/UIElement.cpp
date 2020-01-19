@@ -22,7 +22,7 @@ void UIElement::setText(const string myMes, unsigned int mySize, Color color, Te
 	myText.setOrigin(textBounds.width / 2, textBounds.height/1.5);
 	Vector2f shapePos = this->interactionWindow.getPosition();
 	FloatRect shapeBounds = this->interactionWindow.getLocalBounds();
-	myText.setPosition(shapePos.x + shapeBounds.width / 2, shapePos.y + shapeBounds.height / 2);
+	myText.setPosition(shapePos.x + shapeBounds.width / 2, shapePos.y + shapeBounds.height/2 );
 }
 
 void UIElement::setShape(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor)
@@ -73,6 +73,8 @@ UIElement::UIElement(unsigned int width, unsigned int height, unsigned int x_axi
 	setShape(width, height, x_axis, y_axis, degrees, myColor);
 	setText(message, textSize, tColor, tBold, tUnderline);
 	this->myColor = myColor;
+	this->interactionWindow.setOutlineThickness(ouThick);
+	this->interactionWindow.setOutlineColor(ouColor);
 }
 
 void UIElement::manageInput(Vector2i mousePos, Keyboard::Key pressed, change mode)

@@ -104,7 +104,7 @@ void Project::runProject(RenderWindow& window)
 							{
 								for (int k = 0; k < naScenie.size(); k++)
 								{
-									 naScenie[k]->operator<<(file) ;
+									 naScenie[k]->operator<<(file);
 								}
 								file.close();
 							}
@@ -177,7 +177,7 @@ void Project::runProject(RenderWindow& window)
 				{
 					if (toGuide)
 					{
-						projectPlane->traveler = toGuide->manageScreenBehaviour(set);
+						projectPlane->traveler = toGuide->manageScreenBehaviour(set);// polimorfizm
 						projectPlane->manageInput(Mouse::getPosition(window), Keyboard::Key::Unknown, dflt);
 						if (projectPlane->isActivated())
 						{
@@ -206,7 +206,7 @@ void Project::drawOnScene(RenderWindow & window)
 	if (!naScenie.empty())
 	{
 		for (int k = 0; k < naScenie.size(); k++)
-			naScenie[k]->drawMe(window, RenderStates::Default);
+			naScenie[k]->drawMe(window, RenderStates::Default);//polimorfizm
 	}
 }
 
