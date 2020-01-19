@@ -15,7 +15,7 @@ using namespace sf;
 int main(int argc, char * argv[])
 {
 	RenderWindow window { VideoMode(1600,900),"Project " };
-	Project* super = new Project(1600, 900);
+	Project* super = new Project(1600, 900,"Zapis.txt");
 	super->addFurniture("DobreKrzeslo.png",dflt);
 	super->addFurniture("DobryFotel.png", dflt);
 	super->addFurniture("LepszyStol.png", dflt);

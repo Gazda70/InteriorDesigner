@@ -17,7 +17,7 @@ void UI::createMainMenu()
 		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Nowy projekt"));// nowy projekt
 
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 2.5),
-		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Otworz istniejacy"));// otwórz istniejacy
+		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Otworz poprzedni"));// otwórz istniejacy
 
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 2.13),
 		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Ustawienia"));// ustawienia
@@ -123,7 +123,7 @@ void UI::createWorkplace()
 
 	workPlace.push_back(ksztalt);
 	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 9), (res_y / 18),
-		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Pomoc"));
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Zapisz"));
 
 	startList = ksztalt->getInteractionWindow().getPosition();
 	 hookSize = ksztalt->getInteractionWindow().getLocalBounds();
@@ -134,7 +134,7 @@ void UI::createWorkplace()
 		Color::Green, 15, Color::Black, Text::Style::Italic, Text::Style::Regular, -5, Color::Black);
 
 	workPlace.push_back(new UIElement(((res_x / 16) * 3), (res_y / 9), ((res_x / 32) * 25), (res_y / 18),
-		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wyjdz"));
+		Color::Red, 60, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wroc"));
 	colorList->addPart("Zielony",Color::Green, nullptr);
 	colorList->addPart("Czerwony", Color::Red, nullptr);
 	colorList->addPart("Niebieski", Color::Blue, nullptr);

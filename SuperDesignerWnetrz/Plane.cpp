@@ -63,6 +63,18 @@ Element *Plane::manageScreenBehaviour(change mode)
 	return nullptr;
 }
 
+istream & Plane::operator>>(istream & is)
+{
+	// TODO: insert return statement here
+	return is;
+}
+
+ostream & Plane::operator<<(ostream & os)
+{
+	// TODO: insert return statement here
+	return os;
+}
+
 void Plane::setPosition(Vector2i position)
 {
 	//implement

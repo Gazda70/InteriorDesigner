@@ -6,7 +6,7 @@
 class Project
 {
 public:
-	Project(unsigned int screen_res_width, unsigned int screen_res_height);
+	Project(unsigned int screen_res_width, unsigned int screen_res_height, string fileName);
 	void addFurniture(string textureFile, change mode);
 	void runProject(RenderWindow& window);
 	void drawOnScene(RenderWindow& window);
@@ -21,4 +21,5 @@ private:
 	unsigned int screen_res_width;
 	unsigned int screen_res_height;
 	bool mouseGuide;
+	string fileName;
 };

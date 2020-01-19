@@ -12,6 +12,8 @@ class Plane : public Element
 		 void drawMe(RenderWindow& window, RenderStates state);
 		 void manageInput(Vector2i mousePos, Keyboard::Key pressed, change mode);
 		 Element* manageScreenBehaviour(change mode);
+		 istream& operator>>(istream& is);
+		 ostream& operator<<(ostream& os);
 		 void setPosition(Vector2i position);
 		bool isActivated();
 		RectangleShape myplane();

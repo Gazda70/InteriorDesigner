@@ -65,6 +65,16 @@ bool UIElement::isActivated()
 	return activate;
 }
 
+istream & UIElement::operator>>(istream & is)
+{
+	return is;
+}
+
+ostream & UIElement::operator<<(ostream & os)
+{
+	return os;
+}
+
 void UIElement::setPosition(Vector2i position)
 {
 	Vector2f temp{ static_cast<float>(position.x),static_cast<float>(position.y) };

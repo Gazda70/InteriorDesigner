@@ -23,6 +23,8 @@ public:
 	void setPosition(Vector2i position);
 	void setColor(Color& myColor, change mode);
 	bool isActivated();
+	istream& operator>>(istream& is);
+	ostream& operator<<(ostream& os);
 	RectangleShape getInteractionWindow();
 	Text getText();
 	bool whenMouseOverMe();

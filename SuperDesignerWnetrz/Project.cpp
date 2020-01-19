@@ -1,7 +1,7 @@
 #include "Project.h"
 
 
-Project::Project(unsigned int screen_res_width, unsigned int screen_res_height)
+Project::Project(unsigned int screen_res_width, unsigned int screen_res_height, string fileName)
 {
 	 projectInterface = new UI(screen_res_width, screen_res_height);
 	 projectInterface->createMainMenu();
@@ -11,8 +11,9 @@ Project::Project(unsigned int screen_res_width, unsigned int screen_res_height)
 		((screen_res_height / 18) * 4), Color::Magenta, Color::Black, -5);
 	this->screen_res_width = screen_res_width;
 	this->screen_res_height = screen_res_height;
-	 mouseGuide = false;
-	 change mySwitch = change::MainMenu;
+	mouseGuide = false;
+	this->fileName = fileName;
+	mySwitch = change::MainMenu;
 }
 
 void Project::addFurniture(string textureFile, change mode)
@@ -48,6 +49,7 @@ void Project::runProject(RenderWindow& window)
 			}
 			else if ((event.type == Event::MouseButtonPressed))
 			{
+				fstream file;
 				if (!mouseGuide)
 				{
 					Vector2i mPosition = Mouse::getPosition(window);
@@ -61,7 +63,23 @@ void Project::runProject(RenderWindow& window)
 							break;
 						case 1:
 							mySwitch = WorkPlace;
+							file.open(fileName,ios::trunc);
+							file.close();
 							break;
+							case 2:
+								file.open(fileName, ios::in);
+								if (file.is_open())
+								{
+									while (!file.eof())
+									{
+										Element* help = new Furniture();
+										help->operator>>(file);
+										naScenie.push_back(help);
+									}
+									file.close();
+								}
+								mySwitch = WorkPlace;
+								break;
 						}
 					}
 					else if (mySwitch == WorkPlace)
@@ -80,9 +98,21 @@ void Project::runProject(RenderWindow& window)
 							else
 								projectInterface->showColorList = 1;
 							break;
-						case 3:
-							window.close();
+						case 2:
+							file.open(fileName, ios::out | ios::trunc);
+							if (file.is_open())
+							{
+								for (int k = 0; k < naScenie.size(); k++)
+								{
+									 naScenie[k]->operator<<(file) ;
+								}
+								file.close();
+							}
 							break;
+						case 3:
+							mySwitch = MainMenu;
+							naScenie.clear();
+								break;
 						}
 						if (projectInterface->showFurnitureList)
 						{
@@ -91,7 +121,7 @@ void Project::runProject(RenderWindow& window)
 						 projectInterface->furnitureList->chosen = nullptr;
 							if (toSpawn)
 							{
-								addFurniture(toSpawn->name, set);
+								addFurniture(toSpawn->file, set);
 								toSpawn = nullptr;
 							}
 						}
@@ -188,6 +218,7 @@ void Project::removeFromScene(Element * toRemove)
 		if (naScenie[i] == toRemove)
 		{
 			naScenie.erase(naScenie.begin()+i);
+			return;
 		}
 		else
 		{

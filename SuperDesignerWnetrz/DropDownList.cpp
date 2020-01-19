@@ -21,11 +21,30 @@ void DropDownList::drawMe( RenderWindow & window, RenderStates state)
 
 Element* DropDownList::manageScreenBehaviour(change mode)
 {
-	for (auto iter : ourlist)
+	if (mode == save)
 	{
-		iter->manageScreenBehaviour(mode);
+		ofstream fileToSave;
+		fileToSave.open(saveFile,ios::in);
+		if(fileToSave.is_open())
+		{
+			for (auto iter : ourlist)
+			{
+				fileToSave<<iter;
+			}
+			fileToSave.close();
+		}
 	}
 	return nullptr;
+}
+istream & DropDownList::operator>>(istream & is)
+{
+	// TODO: insert return statement here
+	return is;
+}
+ostream & DropDownList::operator<<(ostream & os)
+{
+	return os;
+	// TODO: insert return statement here
 }
 change DropDownList::getType()
 {
