@@ -18,12 +18,11 @@ class Plane : public Element
 		bool isActivated();
 		RectangleShape myplane();
 		Element* traveler;
-		//	static int projectNumber;
 	private:
 		RectangleShape myPlane;
 		bool isInside;
 		void setColor(Color& myColor, change mode);
 		void setSize(unsigned int width, unsigned int height);
-		 void setOffset(unsigned int x_axis, unsigned int y_axis);
+		// void setOffset(unsigned int x_axis, unsigned int y_axis);
 		 void setOutline(Color oColor,int oThick);
 	};

@@ -9,13 +9,6 @@ void Plane::setSize(unsigned int width, unsigned int height)
 	this->myPlane.setSize(temp);
 }
 
-void Plane::setOffset(unsigned int x_axis, unsigned int  y_axis)
-{
-	Vector2f temp;
-	temp.x = x_axis;
-	temp.y = y_axis;
-	this->myPlane.setPosition(temp);
-}
 void Plane::setColor(Color& myColor, change mode)
 {
 	this->myPlane.setFillColor(myColor);
@@ -37,9 +30,10 @@ RectangleShape Plane::myplane()
 Plane::Plane(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int  y_axis,
 	Color myColor, Color oColor, int oThick)
 {
+	Vector2i position = {static_cast<int>(x_axis),static_cast<int>(y_axis)};
 	setSize(width, height);
 	setColor(myColor,dflt);
-	setOffset(x_axis, y_axis);
+	setPosition(position);
 	setOutline(oColor, oThick);
 }
 
@@ -59,25 +53,22 @@ void Plane::manageInput(Vector2i mousePos, Keyboard::Key pressed, change mode)
 
 Element *Plane::manageScreenBehaviour(change mode)
 {
-	//implement
 	return nullptr;
 }
 
 istream & Plane::operator>>(istream & is)
 {
-	// TODO: insert return statement here
 	return is;
 }
 
 ostream & Plane::operator<<(ostream & os)
 {
-	// TODO: insert return statement here
 	return os;
 }
 
 void Plane::setPosition(Vector2i position)
 {
-	//implement
+	this->myPlane.setPosition(static_cast<Vector2f>(position));
 }
 
 bool Plane::isActivated()

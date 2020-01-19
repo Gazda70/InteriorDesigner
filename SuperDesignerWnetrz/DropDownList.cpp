@@ -33,19 +33,11 @@ Element* DropDownList::manageScreenBehaviour(change mode)
 			}
 			fileToSave.close();
 		}
+		return nullptr;
 	}
-	return nullptr;
+
 }
-istream & DropDownList::operator>>(istream & is)
-{
-	// TODO: insert return statement here
-	return is;
-}
-ostream & DropDownList::operator<<(ostream & os)
-{
-	return os;
-	// TODO: insert return statement here
-}
+
 change DropDownList::getType()
 {
 	return this->ourType;

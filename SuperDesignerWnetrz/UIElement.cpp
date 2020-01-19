@@ -10,30 +10,18 @@ RectangleShape UIElement::getInteractionWindow()
 	RectangleShape shape = this->interactionWindow;
 	return shape;
 }
-Text UIElement::getText()
-{
-	Text text = this->myText;
-	return text;
-}
+
 void UIElement::setText(const string myMes, unsigned int mySize, Color color, Text::Style ifBold, Text::Style ifUnderlined)
 {
 	myText.setFont(myFont);
-	// set the string to display
 	myText.setString(myMes);
-	// set the character size
-	myText.setCharacterSize(mySize); // in pixels, not points!
-	// set the color
+	myText.setCharacterSize(mySize); 
 	myText.setFillColor(color);
-	// set the text style
 	myText.setStyle(ifBold | ifUnderlined);
-	//get the text size
 	FloatRect textBounds = myText.getLocalBounds();
-	//set the text origin to center
-	myText.setOrigin(textBounds.width / 2, textBounds.height);
+	myText.setOrigin(textBounds.width / 2, textBounds.height/1.5);
 	Vector2f shapePos = this->interactionWindow.getPosition();
 	FloatRect shapeBounds = this->interactionWindow.getLocalBounds();
-
-	// set the text position
 	myText.setPosition(shapePos.x + shapeBounds.width / 2, shapePos.y + shapeBounds.height / 2);
 }
 
@@ -46,18 +34,6 @@ void UIElement::setShape(unsigned int width, unsigned int height, unsigned int x
 	interactionWindow.setPosition(x_axis, y_axis);
 	interactionWindow.setFillColor(myColor);
 	interactionWindow.setRotation({ degrees });
-}
-
-bool UIElement::whenMouseOverMe()
-{
-	if (this->myText.getString() == "Ksztalty")
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
 }
 
 bool UIElement::isActivated()

@@ -58,7 +58,7 @@ void Project::runProject(RenderWindow& window)
 					{
 						switch (count)
 						{
-						case 4:
+						case 3:
 							window.close();
 							break;
 						case 1:

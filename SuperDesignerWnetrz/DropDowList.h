@@ -14,14 +14,12 @@ public:
 	void addPart(string another,Color myColor, Furniture* toFollow);
 	void drawMe(RenderWindow & window, RenderStates state);
 	Element* manageScreenBehaviour(change mode);
-	istream& operator>>(istream& is);
-	ostream& operator<<(ostream& os);
-	Element* chosen;
-	vector<Element*> ourlist;
 	change getType();
 	void setColor(Color& myColor, change mode);
-	string saveFile;
+	Element* chosen;
 private:
+	vector<Element*> ourlist;
+	string saveFile;
 	bool activated;
 	change ourType;
 	unsigned int	helpy;

@@ -26,8 +26,6 @@ public:
 	istream& operator>>(istream& is);
 	ostream& operator<<(ostream& os);
 	RectangleShape getInteractionWindow();
-	Text getText();
-	bool whenMouseOverMe();
 protected:
 	void setText(const string myMes, unsigned int mySize, Color color, Text::Style ifBold, Text::Style ifUnderline);
 	void setShape(unsigned int width, unsigned int height, unsigned int x_axis, unsigned int y_axis, float degrees, Color myColor);

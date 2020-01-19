@@ -20,10 +20,7 @@ void UI::createMainMenu()
 		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Otworz poprzedni"));// otwórz istniejacy
 
 	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 2.13),
-		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Ustawienia"));// ustawienia
-
-	mainMenu.push_back(new UIElement((temp_x / 2), (temp_y / 18), temp_x / 4, (int)(temp_y / 1.85),
-		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wyjdz"));// wyjdz
+		Color::Red, 40, Color::Black, Text::Regular, Text::Regular, -1, Color::Black, "Wyjdz"));// ustawienia
 }
 void UI::displayCurrent(change current, RenderWindow& window, Plane &myCanvas, bool showList)
 {
